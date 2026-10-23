@@ -1,0 +1,4 @@
+id,role,company,location,posted_date,source_site,url,access_date,experience,key_skills
+JD1,AI Engineer - Enterprise Conversational Platform,HiringBlaze,Gurgaon/Noida,2026-10-14,Hirist,PASTE_URL_1,2026-10-23,0-2 yrs,Python; APIs; data pipelines; microservices; RAG; embeddings; tool calling; agent frameworks; automated testing; prompt engineering; AI evaluation
+JD2,Junior Data Engineer,Crowe,Hyderabad,2026-10-22,Crowe careers (via RecentlyPostedJobs),PASTE_URL_2,2026-10-23,0-2 yrs,SQL; ETL/ELT; data warehousing; data lakes; Azure data services; Python/PySpark; Power BI; data security and governance; Git and CI/CD
+JD3,GenAI Engineer (contract),Workiy,Remote,2026-09-29,Workiy careers,https://workiy.zohorecruit.com/jobs/Workiy-Careers/574222000024500104,2026-10-23,not stated,LLM applications; Claude API; prompt engineering; RAG; AI agents; API integration; cloud (AWS/Azure/GCP); solution architecture
