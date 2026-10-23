@@ -42,3 +42,53 @@ Source: my own registered course path (codes, titles, credits only; no grades). 
 | 10 | UPDATE CS415 Ethical Hacking (shift towards data security, access control, governance) and CS307 Cloud Computing (add cloud AI and data services) | JD2 lists data security and governance and Azure data services; JD3 lists cloud. No JD mentions ethical hacking itself. I have NOT checked either syllabus. | [OBSERVED] for the JDs, [ASSUMPTION] for the gap |
 | 11 | UPDATE SP301 Special Project, which becomes the Workflow Reliability capstone built from my Task 1 | This is a design choice, not a job-market finding. No JD asks for it directly, but JD1 (testing, evaluation) and JD2 (Git, CI/CD) both reward reliable, tested workflows. | [ASSUMPTION] |
 | 12 | KEEP 130 credits untouched, including EC308 Embedded Systems, the 15-credit internship and zero-credit courses | EC308 is also listed under ECE, so changing it would involve two departments. The internship and zero-credit courses probably follow fixed regulations that I have not verified. | [ASSUMPTION] |
+
+## 3. Comparison with three real job descriptions (all accessed 23 Oct 2026)
+
+Full details and URLs: `task2/data/job_descriptions.csv`.
+
+- JD1: AI Engineer, Enterprise Conversational Platform, HiringBlaze (likely an intermediary), 0-2 yrs, posted 2026-10-14.
+- JD2: Junior Data Engineer, Crowe, Hyderabad, 0-2 yrs, posted 2026-10-22.
+- JD3: GenAI Engineer (contract), Workiy, remote, experience not stated (so not clearly entry-level), opened 2026-09-29.
+
+| Skill named in the JD | JD1 | JD2 | JD3 | Course affected in my proposal |
+|-----------------------|:---:|:---:|:---:|--------------------------------|
+| SQL, data warehousing, data lakes | - | yes | - | UPDATE CS206 DBMS, DS307 Big Data Systems |
+| ETL/ELT, Power BI | - | yes | - | UPDATE DS305 Data Wrangling and Visualization |
+| Python/PySpark | Python | yes | - | UPDATE DS307 Big Data Systems |
+| APIs, microservices, API integration | yes | - | yes | UPDATE CS205 Web-Enabled Technologies |
+| Git, CI/CD | - | yes | - | UPDATE DS202 Industry Coding Practice |
+| Automated testing, AI evaluation | yes | - | - | ADD NEW1 AI Evaluation, Testing and Observability |
+| RAG, embeddings | yes | - | RAG | UPDATE DS408 Generative AI |
+| Tool calling, agents / agent frameworks | yes | - | yes | UPDATE DS408 Generative AI |
+| Prompt engineering | yes | - | yes | NEW1 and DS408 |
+| Cloud, solution architecture, Azure data services | - | Azure | yes | UPDATE CS307 Cloud Computing, ADD NEW2 MLOps and Deployment |
+| Data security and governance | - | yes | - | UPDATE CS415 Ethical Hacking |
+
+- [OBSERVED] The skills in this table are copied from the three job descriptions.
+- [OBSERVED] No JD mentions blockchain or fuzzy/rough sets.
+- [ESTIMATE] Three job descriptions are a very small sample. They cannot represent the whole job market. They are all 0-2 years or unstated experience, and JD3 is a contract role.
+- [ASSUMPTION] Whether my current courses already cover a skill is NOT checked for 8 of the 9 UPDATE courses (syllabus_checked = no in `proposal.csv`).
+
+## 4. Prerequisites
+
+| New course | Sem | Prerequisites (course codes from my path) |
+|------------|-----|-------------------------------------------|
+| NEW1 AI Evaluation, Testing and Observability | V | DS304, DS202 |
+| NEW2 MLOps and Deployment | VI | DS304, CS302 |
+
+- [ASSUMPTION] I chose these prerequisites by judgement. I have not confirmed that DS304, DS202 and CS302 are completed before Sem V / Sem VI in the official scheme. This must be checked against the official regulations.
+- [ASSUMPTION] The UPDATE courses keep their existing prerequisites.
+
+## 5. Regulatory conditions and risks
+
+- [ASSUMPTION] This is a student proposal. Any real change would need approval from the university's academic bodies (for example the Academic Council or Board of Studies). I have not found their exact process.
+- [OBSERVED] I have NOT found the official regulations or scheme document, and the programme total of 166 credits is therefore not verified.
+- [OBSERVED] Internship discrepancy (sources accessed 23 Oct 2026): the IFHE website says IP-I (2 months, compulsory) is in the summer after Semester II, while my transcript shows IP-I in the summer after Semester IV. The website also says IP-II (5.5 months) is in Sem VII or VIII, with a thesis stream as an alternative.
+  - https://ifheindia.org/icfai-tech-school-hyderabad/icfaitech-internship
+  - https://ifheindia.org/lp/icfaitech2025
+- [ASSUMPTION] Internship and zero-credit courses follow fixed rules, so I keep them unchanged.
+- [OBSERVED] EC308 Embedded Systems is also listed under ECE, so changing it would involve two departments. I keep it unchanged.
+- [ASSUMPTION] Moving ML302 to the elective pool requires an elective pool to exist for my branch. I have not verified that.
+- [ASSUMPTION] Summer terms are also used for clearing backlogs. I have not verified this in the regulations.
+- [ASSUMPTION] New courses (NEW1, NEW2) need syllabus, faculty, lab resources and approval, none of which I have.
