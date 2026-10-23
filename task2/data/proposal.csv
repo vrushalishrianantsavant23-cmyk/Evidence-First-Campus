@@ -1,0 +1,16 @@
+code,title,sem,current_credits,action,new_credits,jd_evidence,note
+DS303,Blockchain Technology,V,3,REDUCE,0,none of JD1-3,removed; slot reused for NEW1
+ML302,Fuzzy and Rough Set Theory,VI,3,REDUCE,0,none of JD1-3,removed; slot reused for NEW2
+EC308,Embedded Systems,VI,3,REDUCE,0,none of JD1-3,removed; slot reused for NEW3; course also listed under ECE so both departments must agree
+NEW1,Data Engineering and Pipelines,V,0,ADD,3,JD2,ETL/ELT; warehousing; data lakes; prerequisites CS206 and DS202
+NEW2,AI Evaluation Testing and Observability,VI,0,ADD,3,JD1,prerequisites DS304 and DS202
+NEW3,MLOps and Deployment,VI,0,ADD,3,JD1;JD2;JD3,Docker; CI/CD; prerequisites DS304 and CS302
+CS206,Database Management Systems,III,4,UPDATE,4,JD2,add data warehousing; data lakes; SQL optimisation
+CS205,Web-Enabled Technologies,IV,4,UPDATE,4,JD1;JD3,add REST APIs; microservices
+DS202,Industry Coding Practice,IV,3,UPDATE,3,JD1;JD2,add Git; automated testing; CI
+DS305,Data Wrangling and Visualization,V,3,UPDATE,3,JD2,add ETL; Power BI; data quality checks
+CS415,Ethical Hacking,V,3,UPDATE,3,JD2,shift toward data security; access control; governance
+DS307,Big Data Systems,VI,3,UPDATE,3,JD2,add PySpark; data lakes
+SP301,Special Project,VI,3,UPDATE,3,JD1;JD2;JD3,becomes the Workflow Reliability capstone built from Task 1
+CS307,Cloud Computing,VII,4,UPDATE,4,JD1;JD2;JD3,add cloud AI and data services
+DS408,Generative AI,VII,3,UPDATE,3,JD1;JD3,add RAG; embeddings; tool calling; agents; evaluation
