@@ -1,14 +1,14 @@
-code,title,sem,current_credits,action,new_credits,jd_evidence,syllabus_checked,note
-DS303,Blockchain Technology,V,3,REDUCE,0,none of JD1-3,no,removed; slot reused for NEW1; based on JD absence only
-ML302,Fuzzy and Rough Set Theory,VI,3,REDUCE,0,none of JD1-3,yes (34-lecture syllabus),removed from core; units on fuzzy logic and rough sets absent from JD1-3; automated-methods topics likely overlap DS304 and DS306 (assumption); move to elective pool; slot reused for NEW2
-NEW1,AI Evaluation Testing and Observability,V,0,ADD,3,JD1,n/a,prerequisites DS304 and DS202
-NEW2,MLOps and Deployment,VI,0,ADD,3,JD1;JD2;JD3,n/a,Docker; CI/CD; prerequisites DS304 and CS302
-CS206,Database Management Systems,III,4,UPDATE,4,JD2,no,add data warehousing; data lakes; SQL optimisation
-DS305,Data Wrangling and Visualization,V,3,UPDATE,3,JD2,no,add ETL; data quality checks; Power BI
-DS307,Big Data Systems,VI,3,UPDATE,3,JD2,no,add PySpark; data lakes; pipelines
-CS205,Web-Enabled Technologies,IV,4,UPDATE,4,JD1;JD3,no,add REST APIs; microservices
-DS202,Industry Coding Practice,IV,3,UPDATE,3,JD1;JD2,no,add Git; automated testing; CI
-CS415,Ethical Hacking,V,3,UPDATE,3,JD2,no,shift toward data security; access control; governance
-SP301,Special Project,VI,3,UPDATE,3,JD1;JD2;JD3,no,becomes the Workflow Reliability capstone built from Task 1
-CS307,Cloud Computing,VII,4,UPDATE,4,JD1;JD2;JD3,no,add cloud AI and data services
-DS408,Generative AI,VII,3,UPDATE,3,JD1;JD3,partial (objectives only),objectives already cover LLM training; fine-tuning; evaluation; deployment; add RAG; embeddings; tool calling; agents; trade some breadth (music; RL applications) for depth
+code,title,sem,current_credits,action,new_credits,replaces,counts_as_changed,prerequisites,jd_evidence,syllabus_checked,note
+DS303,Blockchain Technology,V,3,REDUCE,0,,3,,absent from JD1-3 (weak evidence: only 3 JDs),no,removed from core; slot reused by NEW1
+ML302,Fuzzy and Rough Set Theory,VI,3,REDUCE,0,,3,,absent from JD1-3 (weak evidence: only 3 JDs),yes (lecture plan numbered 1-34; catalog lists 42 sessions),moved out of core to an elective pool; automated-methods topics likely overlap DS304 and DS306 (assumption); slot reused by NEW2
+NEW1,AI Evaluation Testing and Observability,V,0,ADD,3,DS303,0,DS304; DS202,JD1,n/a,evaluation and testing of AI systems (JD1 lists AI evaluation and automated testing); counted via the course it replaces
+NEW2,MLOps and Deployment,VI,0,ADD,3,ML302,0,DS304; CS302,JD1; JD2; JD3,n/a,deployment and CI/CD (JD2 lists CI/CD as preferred; JD1 lists production microservices; JD3 lists cloud platforms); counted via the course it replaces
+CS206,Database Management Systems,III,4,UPDATE,4,,4,,JD2,no,add data warehousing; data lakes; SQL optimisation (all named in JD2)
+DS305,Data Wrangling and Visualization,V,3,UPDATE,3,,3,,JD2,no,add ETL and data quality checks (JD2); Power BI is only an added advantage in JD2
+DS307,Big Data Systems,VI,3,UPDATE,3,,3,,JD2,no,add PySpark (preferred in JD2); data lakes; pipelines
+CS205,Web-Enabled Technologies,IV,4,UPDATE,4,,4,,JD1; JD3,no,add REST APIs and microservices (JD1 lists APIs and microservices; JD3 lists API integration)
+DS202,Industry Coding Practice,IV,3,UPDATE,3,,3,,JD1; JD2,no,add Git and automated testing (JD1 lists testing; JD2 lists Git and CI/CD as preferred)
+CS415,Ethical Hacking,V,3,UPDATE,3,,3,,JD2,no,partial shift toward data security; access control; governance (JD2) while keeping core ethical hacking labs
+SP301,Special Project,VI,3,UPDATE,3,,3,,JD1; JD2; JD3,no,becomes the Workflow Reliability capstone built from Task 1; JD1 testing and evaluation; JD2 data quality checks and monitoring; JD3 API integration
+CS307,Cloud Computing,VII,4,UPDATE,4,,4,,JD1; JD2; JD3,no,add cloud AI and data services (JD1 microservices; JD2 Azure data services; JD3 cloud platforms)
+DS408,Generative AI,VII,3,UPDATE,3,,3,,JD1; JD3,partial (objectives only),objectives already cover LLM training; fine-tuning; evaluation; deployment; add RAG; embeddings; tool calling; agents (JD1; JD3); reduce music and RL application coverage since ML303 covers RL (assumption)
