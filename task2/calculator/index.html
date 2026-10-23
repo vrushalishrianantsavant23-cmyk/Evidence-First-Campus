@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credit Calculator - Evidence-First-Campus</title>
+<style>
+:root{--bg:#ffffff;--fg:#1c1f26;--muted:#5b6472;--card:#f3f5f9;--line:#d9dee7;--keep:#2f7d4f;--update:#b7791f;--reduce:#c0392b;--add:#2b6cb0;--ok:#2f7d4f;--bad:#c0392b}
+@media (prefers-color-scheme:dark){:root{--bg:#12151b;--fg:#e8ebf1;--muted:#9aa4b5;--card:#1b2029;--line:#2c3442;--keep:#5bc08a;--update:#e0b04a;--reduce:#ef7b6e;--add:#6fa8ee;--ok:#5bc08a;--bad:#ef7b6e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);line-height:1.45}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.5rem;margin:0 0 4px}
+h2{font-size:1.1rem;margin:28px 0 10px}
+p.sub{color:var(--muted);margin:0 0 16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card .k{color:var(--muted);font-size:.8rem}
+.card .v{font-size:1.5rem;font-weight:700}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.meter{position:relative;height:16px;background:var(--card);border:1px solid var(--line);border-radius:8px;margin:14px 0 4px;overflow:hidden}
+.fill{height:100%;background:var(--update);width:0}
+.mark{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);opacity:.6}
+.scale{display:flex;justify-content:space-between;color:var(--muted);font-size:.75rem}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+button.f{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:6px 12px;border-radius:999px;cursor:pointer;font-size:.85rem}
+button.f.on{background:var(--fg);color:var(--bg)}
+select,input[type=search]{padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg)}
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.85rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--card);position:sticky;top:0}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;font-weight:700;border:1px solid currentColor}
+.KEEP{color:var(--keep)}.UPDATE{color:var(--update)}.REDUCE{color:var(--reduce)}.ADD{color:var(--add)}.OFF{color:var(--muted)}
+.note{color:var(--muted);font-size:.8rem}
+.legend{color:var(--muted);font-size:.85rem}
+footer{margin-top:30px;color:var(--muted);font-size:.8rem}
+a{color:var(--add)}
+</style>
+</head>
+<body>
+<main>
+<h1>Credit Calculator</h1>
+<p class="sub">Student proposal, not an official syllabus revision. Tick or untick a change to see the totals update. All numbers are drawn from the data below.</p>
+
+<div class="cards" id="cards"></div>
+<div class="meter" id="meter"><div class="fill" id="fill"></div><div class="mark" id="m20"></div><div class="mark" id="m25"></div></div>
+<div class="scale"><span>0%</span><span>target band 20% to 25%</span><span>30%</span></div>
+<p class="legend" id="rule"></p>
+
+<h2>Courses</h2>
+<div class="controls">
+  <span id="fbtns"></span>
+  <select id="sem" aria-label="Semester filter"></select>
+  <input type="search" id="q" placeholder="Search code or title" aria-label="Search">
+</div>
+<div class="wrap"><table>
+<thead><tr><th>Apply</th><th>Sem</th><th>Code</th><th>Course</th><th>Action</th><th>Credits before</th><th>Credits after</th><th>Evidence and note</th></tr></thead>
+<tbody id="rows"></tbody></table></div>
+
+<h2>Credits by semester</h2>
+<div class="wrap"><table>
+<thead><tr><th>Semester</th><th>Before</th><th>After</th><th>Difference</th></tr></thead>
+<tbody id="sems"></tbody></table></div>
+
+<h2>Job descriptions used (accessed 23 Oct 2026)</h2>
+<div class="wrap"><table>
+<thead><tr><th>ID</th><th>Role</th><th>Company</th><th>Posted</th><th>Link</th></tr></thead>
+<tbody id="jds"></tbody></table></div>
+
+<footer>Counting rule (an assumption): changed credits = credits of UPDATE courses + credits of REDUCE courses. An ADD that replaces a REDUCE in the same slot is counted once, through the REDUCE. Percentage = changed credits / total programme credits. The total of 166 is not yet checked against the official regulations. Course credits come from the registered course path; no grades are used.</footer>
+</main>
+
+<script>
+var SEM_ORDER = ["I","II","III","IV","V","VI","VII","Summer","VIII"];
+
+var COURSES = [
+["I","CS101","Computer Programming",4],["I","MT102","Engineering Graphics",3],["I","EG101","English Language Skills",3],["I","CH102","Environmental Sciences",2],["I","HS101","Essence of Indian Traditional Knowledge",0],["I","MA101","Linear Algebra and Ordinary Differential Equations",3],["I","PHY101","Physics",5],
+["II","EC101","Basic Electronics",4],["II","CH101","Chemistry",4],["II","CS102","Data Structures",4],["II","MT101","Digital Fabrication",3],["II","MA102","Higher Calculus",3],["II","DS101","Introduction to AI and DS",3],["II","EG102","Professional Communication",3],
+["III","DS201","Artificial Intelligence",3],["III","CS206","Database Management Systems",4],["III","MA202","Discrete Mathematics",3],["III","EC201","Introduction to IoT",3],["III","ML201","Mathematical Essentials for Machine Learning",3],["III","CS201","Object Oriented Programming Concepts",4],["III","CR201","Power Skills-I",1],["III","HS201","Dynamics of Social Change",3],
+["IV","CS204","Computer Organization and Architecture",3],["IV","CS203","Design and Analysis of Algorithms",3],["IV","MG201","Engineering Economics and Management",3],["IV","DS202","Industry Coding Practice (Python/R)",3],["IV","DS304","Machine Learning",3],["IV","CS302","Operating Systems",4],["IV","CR202","Power Skills-II",1],["IV","CS205","Web-Enabled Technologies",4],
+["V","DS303","Blockchain Technology",3],["V","CS306","Computer Networks",4],["V","HS301","Constitution of India",0],["V","DS305","Data Wrangling and Visualization",3],["V","DS306","Deep Learning",4],["V","CS415","Ethical Hacking",3],["V","ML301","Metaheuristic Optimization",3],["V","CR301","Power Skills-III",1],
+["VI","DS307","Big Data Systems",3],["VI","EC308","Embedded Systems",3],["VI","ML302","Fuzzy and Rough Set Theory",3],["VI","CR302","Power Skills-IV",1],["VI","ML303","Reinforcement Learning",3],["VI","SP301","Special Project",3],["VI","DS311","Natural Language Processing",3],
+["VII","CS305","Computer Vision",3],["VII","CS307","Cloud Computing",4],["VII","MG401","Introduction to Entrepreneurship",3],["VII","DS408","Generative AI",3],["VII","DS401","Human Computer Interaction",3],
+["Summer","IP201","Internship Program-I",3],["VIII","IP401","Internship Program-II",15]
+];
+
+var PROPOSAL = [
+{code:"DS303",action:"REDUCE",newCredits:0,replaces:"",changed:3,jd:"absent from JD1-3 (weak evidence: only 3 JDs)",syl:"no",note:"removed from core; slot reused by NEW1"},
+{code:"ML302",action:"REDUCE",newCredits:0,replaces:"",changed:3,jd:"absent from JD1-3 (weak evidence: only 3 JDs)",syl:"yes (lecture plan numbered 1-34; catalog lists 42 sessions)",note:"moved out of core to an elective pool; automated-methods topics likely overlap DS304 and DS306 (assumption); slot reused by NEW2"},
+{code:"NEW1",title:"AI Evaluation Testing and Observability",sem:"V",action:"ADD",newCredits:3,replaces:"DS303",changed:0,prereq:"DS304; DS202",jd:"JD1",syl:"n/a",note:"evaluation and testing of AI systems (JD1 lists AI evaluation and automated testing); counted via the course it replaces"},
+{code:"NEW2",title:"MLOps and Deployment",sem:"VI",action:"ADD",newCredits:3,replaces:"ML302",changed:0,prereq:"DS304; CS302",jd:"JD1; JD2; JD3",syl:"n/a",note:"deployment and CI/CD (JD2 lists CI/CD as preferred; JD1 lists production microservices; JD3 lists cloud platforms); counted via the course it replaces"},
+{code:"CS206",action:"UPDATE",newCredits:4,replaces:"",changed:4,jd:"JD2",syl:"no",note:"add data warehousing; data lakes; SQL optimisation (all named in JD2)"},
+{code:"DS305",action:"UPDATE",newCredits:3,replaces:"",changed:3,jd:"JD2",syl:"no",note:"add ETL and data quality checks (JD2); Power BI is only an added advantage in JD2"},
+{code:"DS307",action:"UPDATE",newCredits:3,replaces:"",changed:3,jd:"JD2",syl:"no",note:"add PySpark (preferred in JD2); data lakes; pipelines"},
+{code:"CS205",action:"UPDATE",newCredits:4,replaces:"",changed:4,jd:"JD1; JD3",syl:"no",note:"add REST APIs and microservices (JD1 lists APIs and microservices; JD3 lists API integration)"},
+{code:"DS202",action:"UPDATE",newCredits:3,replaces:"",changed:3,jd:"JD1; JD2",syl:"no",note:"add Git and automated testing (JD1 lists testing; JD2 lists Git and CI/CD as preferred)"},
+{code:"CS415",action:"UPDATE",newCredits:3,replaces:"",changed:3,jd:"JD2",syl:"no",note:"partial shift toward data security; access control; governance (JD2) while keeping core ethical hacking labs"},
+{code:"SP301",action:"UPDATE",newCredits:3,replaces:"",changed:3,jd:"JD1; JD2; JD3",syl:"no",note:"becomes the Workflow Reliability capstone built from Task 1; JD1 testing and evaluation; JD2 data quality checks and monitoring; JD3 API integration"},
+{code:"CS307",action:"UPDATE",newCredits:4,replaces:"",changed:4,jd:"JD1; JD2; JD3",syl:"no",note:"add cloud AI and data services (JD1 microservices; JD2 Azure data services; JD3 cloud platforms)"},
+{code:"DS408",action:"UPDATE",newCredits:3,replaces:"",changed:3,jd:"JD1; JD3",syl:"partial (objectives only)",note:"objectives already cover LLM training; fine-tuning; evaluation; deployment; add RAG; embeddings; tool calling; agents (JD1; JD3); reduce music and RL application coverage since ML303 covers RL (assumption)"}
+];
+
+var JDS = [
+["JD1","AI Engineer - Enterprise Conversational Platform","HiringBlaze (likely an intermediary)","2026-10-14","https://www.hirist.tech/j/ai-engineer-enterprise-conversational-platform-1678232"],
+["JD2","Junior Data Engineer","Crowe, Hyderabad","2026-10-22","https://crowe.wd12.myworkdayjobs.com/en-US/external_careers/job/Hyderabad-Telangana-India/Junior-Data-Engineer_R-51712-1"],
+["JD3","GenAI Engineer (contract)","Workiy","2026-09-29","https://workiy.zohorecruit.com/jobs/Workiy-Careers/574222000024500104"]
+];
+
+var byCode = {};
+PROPOSAL.forEach(function(p){ byCode[p.code] = p; });
+var included = {};
+PROPOSAL.forEach(function(p){ if (p.action !== "ADD") included[p.code] = true; });
+var state = { filter: "ALL", sem: "ALL", q: "" };
+
+function buildRows(){
+  var rows = [];
+  COURSES.forEach(function(c){
+    var p = byCode[c[1]];
+    var on = !!(p && included[c[1]]);
+    var action = on ? p.action : "KEEP";
+    var after = c[3];
+    if (action === "REDUCE") after = 0;
+    else if (action === "UPDATE") after = p.newCredits;
+    rows.push({sem:c[0], code:c[1], title:c[2], before:c[3], after:after, action:action, p:p, tickable:!!p, on:on, kind:"base"});
+  });
+  PROPOSAL.filter(function(p){ return p.action === "ADD"; }).forEach(function(p){
+    var on = !!included[p.replaces];
+    rows.push({sem:p.sem, code:p.code, title:p.title, before:0, after:on ? p.newCredits : 0, action:on ? "ADD" : "OFF", p:p, tickable:false, on:on, kind:"add"});
+  });
+  return rows;
+}
+
+function totals(rows){
+  var before = 0, after = 0, changed = 0;
+  rows.forEach(function(r){ before += r.before; after += r.after; });
+  PROPOSAL.forEach(function(p){ if (p.action !== "ADD" && included[p.code]) changed += p.changed; });
+  var pct = before ? (changed / before) * 100 : 0;
+  return {before:before, after:after, changed:changed, pct:pct};
+}
+
+function el(tag, text, cls){
+  var e = document.createElement(tag);
+  if (text !== undefined) e.textContent = text;
+  if (cls) e.className = cls;
+  return e;
+}
+
+function renderCards(t){
+  var box = document.getElementById("cards");
+  box.textContent = "";
+  var balanced = t.before === t.after;
+  var inBand = t.pct >= 20 && t.pct <= 25;
+  var items = [
+    ["Total credits before", String(t.before), ""],
+    ["Total credits after", String(t.after), balanced ? "ok" : "bad"],
+    ["Balanced", balanced ? "Yes" : "No (" + (t.after - t.before) + ")", balanced ? "ok" : "bad"],
+    ["Changed credits", String(t.changed), ""],
+    ["Changed share", t.pct.toFixed(1) + "%", inBand ? "ok" : "bad"],
+    ["Inside 20% to 25%", inBand ? "Yes" : "No", inBand ? "ok" : "bad"]
+  ];
+  items.forEach(function(i){
+    var c = el("div", undefined, "card");
+    c.appendChild(el("div", i[0], "k"));
+    c.appendChild(el("div", i[1], "v " + i[2]));
+    box.appendChild(c);
+  });
+  document.getElementById("fill").style.width = Math.min(100, (t.pct / 30) * 100) + "%";
+  document.getElementById("m20").style.left = (20 / 30 * 100) + "%";
+  document.getElementById("m25").style.left = (25 / 30 * 100) + "%";
+  document.getElementById("rule").textContent = "Range for " + t.before + " credits: " + (t.before * 0.20).toFixed(1) + " to " + (t.before * 0.25).toFixed(1) + " changed credits. Currently " + t.changed + ".";
+}
+
+function renderRows(rows){
+  var tb = document.getElementById("rows");
+  tb.textContent = "";
+  rows.forEach(function(r){
+    if (state.filter !== "ALL" && r.action !== state.filter) return;
+    if (state.sem !== "ALL" && r.sem !== state.sem) return;
+    if (state.q) {
+      var hay = (r.code + " " + r.title).toLowerCase();
+      if (hay.indexOf(state.q.toLowerCase()) === -1) return;
+    }
+    var tr = document.createElement("tr");
+    var td = document.createElement("td");
+    if (r.tickable) {
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = r.on;
+      cb.setAttribute("aria-label", "Apply change to " + r.code);
+      cb.addEventListener("change", function(){ included[r.code] = cb.checked; render(); });
+      td.appendChild(cb);
+    } else if (r.kind === "add") {
+      td.appendChild(el("span", "tied to " + r.p.replaces, "note"));
+    } else {
+      td.appendChild(el("span", "-", "note"));
+    }
+    tr.appendChild(td);
+    tr.appendChild(el("td", r.sem));
+    tr.appendChild(el("td", r.code));
+    tr.appendChild(el("td", r.title));
+    var ta = document.createElement("td");
+    ta.appendChild(el("span", r.action === "OFF" ? "OFF" : r.action, "badge " + r.action));
+    tr.appendChild(ta);
+    tr.appendChild(el("td", String(r.before)));
+    tr.appendChild(el("td", String(r.after)));
+    var tn = document.createElement("td");
+    if (r.p) {
+      var line = "JD support: " + r.p.jd + ". Syllabus checked: " + r.p.syl + ".";
+      if (r.p.prereq) line += " Prerequisites: " + r.p.prereq + ".";
+      tn.appendChild(el("div", r.p.note));
+      tn.appendChild(el("div", line, "note"));
+    } else {
+      tn.appendChild(el("span", "Unchanged in this proposal", "note"));
+    }
+    tr.appendChild(tn);
+    tb.appendChild(tr);
+  });
+}
+
+function renderSems(rows){
+  var tb = document.getElementById("sems");
+  tb.textContent = "";
+  SEM_ORDER.forEach(function(s){
+    var b = 0, a = 0;
+    rows.forEach(function(r){ if (r.sem === s) { b += r.before; a += r.after; } });
+    var tr = document.createElement("tr");
+    tr.appendChild(el("td", s));
+    tr.appendChild(el("td", String(b)));
+    tr.appendChild(el("td", String(a)));
+    var d = a - b;
+    tr.appendChild(el("td", (d > 0 ? "+" : "") + d));
+    tb.appendChild(tr);
+  });
+}
+
+function renderJds(){
+  var tb = document.getElementById("jds");
+  tb.textContent = "";
+  JDS.forEach(function(j){
+    var tr = document.createElement("tr");
+    for (var i = 0; i < 4; i++) tr.appendChild(el("td", j[i]));
+    var td = document.createElement("td");
+    var a = document.createElement("a");
+    a.href = j[4]; a.textContent = "open posting"; a.target = "_blank"; a.rel = "noopener";
+    td.appendChild(a);
+    tr.appendChild(td);
+    tb.appendChild(tr);
+  });
+}
+
+function render(){
+  var rows = buildRows();
+  renderCards(totals(rows));
+  renderRows(rows);
+  renderSems(rows);
+}
+
+function setup(){
+  var fb = document.getElementById("fbtns");
+  ["ALL","KEEP","UPDATE","REDUCE","ADD"].forEach(function(f){
+    var b = el("button", f, "f" + (f === "ALL" ? " on" : ""));
+    b.type = "button";
+    b.addEventListener("click", function(){
+      state.filter = f;
+      Array.prototype.forEach.call(fb.children, function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+      render();
+    });
+    fb.appendChild(b);
+  });
+  var sel = document.getElementById("sem");
+  var o = el("option", "All semesters"); o.value = "ALL"; sel.appendChild(o);
+  SEM_ORDER.forEach(function(s){ var op = el("option", "Semester " + s); op.value = s; sel.appendChild(op); });
+  sel.addEventListener("change", function(){ state.sem = sel.value; render(); });
+  document.getElementById("q").addEventListener("input", function(e){ state.q = e.target.value; render(); });
+  renderJds();
+  render();
+}
+setup();
+</script>
+</body>
+</html>
