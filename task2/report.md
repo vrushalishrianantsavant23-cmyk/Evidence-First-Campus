@@ -92,3 +92,53 @@ Full details and URLs: `task2/data/job_descriptions.csv`.
 - [ASSUMPTION] Moving ML302 to the elective pool requires an elective pool to exist for my branch. I have not verified that.
 - [ASSUMPTION] Summer terms are also used for clearing backlogs. I have not verified this in the regulations.
 - [ASSUMPTION] New courses (NEW1, NEW2) need syllabus, faculty, lab resources and approval, none of which I have.
+
+## 6. Proposed capstone: Workflow Reliability Lab (built from Task 1)
+
+SP301 Special Project (3 credits, credits unchanged) becomes a capstone where students take one real campus-style workflow, here the notice workflow from Task 1, and make it reliable.
+
+- Students map the current process and keep a dated evidence log (OBSERVED / ESTIMATE / ASSUMPTION), as in `task1/`.
+- They design an improved process with inputs, statuses, an accountable owner, approval boundaries and a fallback.
+- They build a small simulator and write automated tests for five synthetic cases: normal, missing information, duplicate, unauthorized request, failed step.
+- They calculate NET time saved (saved time minus review and support effort).
+- They check any AI-generated output and record prompt, model, date, output and how it was verified.
+
+Link to job descriptions: automated testing and AI evaluation (JD1), Git and CI/CD (JD2), reliable API-based workflows (JD1, JD3).
+
+- [ASSUMPTION] I have not discussed this capstone with any faculty member. Lab hours, staffing and permission to use real campus workflows are unknown.
+- [ASSUMPTION] Students would use only permitted or synthetic data.
+
+## 7. Faculty and graduate feedback
+
+- [OBSERVED] Status on 23 Oct 2026: no faculty or graduate feedback has been collected yet.
+- I plan to ask voluntarily on 24 Oct 2026. If nobody is available or willing, I will write that here honestly and will not invent any feedback.
+
+Feedback received: (to be filled only with real, voluntary responses, without names.)
+
+## 8. AI-assisted exercises
+
+Five exercises, one per subject (DBMS, algorithms, operating systems, networks, deep learning). Each has prompt, model, date, output, how it was verified, verdict and limitations. Full record: `task2/ai-use/ai-use-record.txt`.
+
+- [OBSERVED] All five outputs were checked by me by running code or queries, and all were correct.
+- [OBSERVED] One query first failed with "table already exists" because I ran it twice. I fixed it with DROP TABLE IF EXISTS.
+- [OBSERVED] The neuron-gradient prompt did not specify the MSE convention, so the answer depends on the 1/2 convention.
+
+## 9. My personal contribution
+
+- I chose the topics and the Evidence-First tagging approach.
+- I collected the three job descriptions and read their requirements.
+- I read the Fuzzy and Rough Set syllabus and the Generative AI objectives.
+- I ran and checked all five AI exercises myself.
+- I made the keep/update/reduce/add decisions and the credit arithmetic, and tested the calculator.
+- [ASSUMPTION] Claude helped me draft and format files, and I reviewed the content before committing it.
+
+## 10. Limitations
+
+1. The official regulations are not found, so the 166 total, the prerequisites and the approval process are unverified.
+2. Only 2 of the 11 changed courses have had their syllabus read (ML302 in full, DS408 objectives only). For the other 8 UPDATE courses the gap is an assumption.
+3. Three job descriptions are a tiny sample, and one is a contract role with no stated experience.
+4. The "changed credits" rule is my own definition.
+5. EC308 is counted as 3 credits from the catalog value, while my transcript row showed 0.
+6. The IP-I timing differs between the IFHE website and my transcript, and I could not resolve it.
+7. No faculty or graduate feedback yet (see section 7).
+8. This is basically a student version work of me, not an official syllabus revision.
