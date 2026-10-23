@@ -1,16 +1,14 @@
-code,title,sem,current_credits,action,new_credits,jd_evidence,note
-DS303,Blockchain Technology,V,3,REDUCE,0,none of JD1-3,removed; slot reused for NEW1
-ML302,Fuzzy and Rough Set Theory,VI,3,REDUCE,0,none of JD1-3,removed; slot reused for NEW2
-EC308,Embedded Systems,VI,3,REDUCE,0,none of JD1-3,removed; slot reused for NEW3; course also listed under ECE so both departments must agree
-NEW1,Data Engineering and Pipelines,V,0,ADD,3,JD2,ETL/ELT; warehousing; data lakes; prerequisites CS206 and DS202
-NEW2,AI Evaluation Testing and Observability,VI,0,ADD,3,JD1,prerequisites DS304 and DS202
-NEW3,MLOps and Deployment,VI,0,ADD,3,JD1;JD2;JD3,Docker; CI/CD; prerequisites DS304 and CS302
-CS206,Database Management Systems,III,4,UPDATE,4,JD2,add data warehousing; data lakes; SQL optimisation
-CS205,Web-Enabled Technologies,IV,4,UPDATE,4,JD1;JD3,add REST APIs; microservices
-DS202,Industry Coding Practice,IV,3,UPDATE,3,JD1;JD2,add Git; automated testing; CI
-DS305,Data Wrangling and Visualization,V,3,UPDATE,3,JD2,add ETL; Power BI; data quality checks
-CS415,Ethical Hacking,V,3,UPDATE,3,JD2,shift toward data security; access control; governance
-DS307,Big Data Systems,VI,3,UPDATE,3,JD2,add PySpark; data lakes
-SP301,Special Project,VI,3,UPDATE,3,JD1;JD2;JD3,becomes the Workflow Reliability capstone built from Task 1
-CS307,Cloud Computing,VII,4,UPDATE,4,JD1;JD2;JD3,add cloud AI and data services
-DS408,Generative AI,VII,3,UPDATE,3,JD1;JD3,add RAG; embeddings; tool calling; agents; evaluation
+code,title,sem,current_credits,action,new_credits,jd_evidence,syllabus_checked,note
+DS303,Blockchain Technology,V,3,REDUCE,0,none of JD1-3,no,removed; slot reused for NEW1; based on JD absence only
+ML302,Fuzzy and Rough Set Theory,VI,3,REDUCE,0,none of JD1-3,yes (34-lecture syllabus),removed from core; units on fuzzy logic and rough sets absent from JD1-3; automated-methods topics likely overlap DS304 and DS306 (assumption); move to elective pool; slot reused for NEW2
+NEW1,AI Evaluation Testing and Observability,V,0,ADD,3,JD1,n/a,prerequisites DS304 and DS202
+NEW2,MLOps and Deployment,VI,0,ADD,3,JD1;JD2;JD3,n/a,Docker; CI/CD; prerequisites DS304 and CS302
+CS206,Database Management Systems,III,4,UPDATE,4,JD2,no,add data warehousing; data lakes; SQL optimisation
+DS305,Data Wrangling and Visualization,V,3,UPDATE,3,JD2,no,add ETL; data quality checks; Power BI
+DS307,Big Data Systems,VI,3,UPDATE,3,JD2,no,add PySpark; data lakes; pipelines
+CS205,Web-Enabled Technologies,IV,4,UPDATE,4,JD1;JD3,no,add REST APIs; microservices
+DS202,Industry Coding Practice,IV,3,UPDATE,3,JD1;JD2,no,add Git; automated testing; CI
+CS415,Ethical Hacking,V,3,UPDATE,3,JD2,no,shift toward data security; access control; governance
+SP301,Special Project,VI,3,UPDATE,3,JD1;JD2;JD3,no,becomes the Workflow Reliability capstone built from Task 1
+CS307,Cloud Computing,VII,4,UPDATE,4,JD1;JD2;JD3,no,add cloud AI and data services
+DS408,Generative AI,VII,3,UPDATE,3,JD1;JD3,partial (objectives only),objectives already cover LLM training; fine-tuning; evaluation; deployment; add RAG; embeddings; tool calling; agents; trade some breadth (music; RL applications) for depth
