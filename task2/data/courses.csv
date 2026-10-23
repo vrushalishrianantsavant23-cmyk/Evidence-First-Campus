@@ -1,0 +1,53 @@
+semester,code,title,credits
+I,CS101,Computer Programming,4
+I,MT102,Engineering Graphics,3
+I,EG101,English Language Skills,3
+I,CH102,Environmental Sciences,2
+I,HS101,Essence of Indian Traditional Knowledge,0
+I,MA101,Linear Algebra and Ordinary Differential Equations,3
+I,PHY101,Physics,5
+II,EC101,Basic Electronics,4
+II,CH101,Chemistry,4
+II,CS102,Data Structures,4
+II,MT101,Digital Fabrication,3
+II,MA102,Higher Calculus,3
+II,DS101,Introduction to AI and DS,3
+II,EG102,Professional Communication,3
+III,DS201,Artificial Intelligence,3
+III,CS206,Database Management Systems,4
+III,MA202,Discrete Mathematics,3
+III,EC201,Introduction to IoT,3
+III,ML201,Mathematical Essentials for Machine Learning,3
+III,CS201,Object Oriented Programming Concepts,4
+III,CR201,Power Skills-I,1
+III,HS201,Dynamics of Social Change,3
+IV,CS204,Computer Organization and Architecture,3
+IV,CS203,Design and Analysis of Algorithms,3
+IV,MG201,Engineering Economics and Management,3
+IV,DS202,Industry Coding Practice (Python/R),3
+IV,DS304,Machine Learning,3
+IV,CS302,Operating Systems,4
+IV,CR202,Power Skills-II,1
+IV,CS205,Web-Enabled Technologies,4
+V,DS303,Blockchain Technology,3
+V,CS306,Computer Networks,4
+V,HS301,Constitution of India,0
+V,DS305,Data Wrangling and Visualization,3
+V,DS306,Deep Learning,4
+V,CS415,Ethical Hacking,3
+V,ML301,Metaheuristic Optimization,3
+V,CR301,Power Skills-III,1
+VI,DS307,Big Data Systems,3
+VI,EC308,Embedded Systems,3
+VI,ML302,Fuzzy and Rough Set Theory,3
+VI,CR302,Power Skills-IV,1
+VI,ML303,Reinforcement Learning,3
+VI,SP301,Special Project,3
+VI,DS311,Natural Language Processing,3
+VII,CS305,Computer Vision,3
+VII,CS307,Cloud Computing,4
+VII,MG401,Introduction to Entrepreneurship,3
+VII,DS408,Generative AI,3
+VII,DS401,Human Computer Interaction,3
+Summer,IP201,Internship Program-I,3
+VIII,IP401,Internship Program-II,15
