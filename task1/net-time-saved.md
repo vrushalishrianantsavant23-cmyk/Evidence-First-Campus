@@ -1,49 +1,59 @@
-# Task 1: Net Time Saved (model with labelled estimates)
+# Task 1: Net Time Saved (model, all inputs are estimates)
 
-Everything in this file is a model. Only the numbers in section 1 were observed. All time values are [ASSUMPTION], so I show a low, base and high scenario instead of one confident number.
+Net time saved = gross time saved by students - issuer effort - support effort.
+I measured no time data. Every time value below is an ESTIMATE or an ASSUMPTION, so I show a low, base and high scenario instead of one number.
 
-## 1. What I actually observed
-- [OBSERVED] 2026-10-23: my own SIS Notice Board shows 808 notices in total. In the top 10 rows, 5 were viewed and 5 were not viewed.
-- The SIS has no option to show 50 rows or filter by viewed status, so I could not collect a larger sample. [OBSERVED] 2026-10-24.
-- [ESTIMATE] 5 of 10 gives 50% not viewed. With only 10 rows, a 95% Wilson interval is about 24% to 76%. This is far too wide to call it the real rate. I do NOT use it to scale up to the 808 notices.
+## 1. What I observed and used
+- E8 (ESTIMATE from observed dates): 3 to 5 notices per week, so N = 3, 4, 5.
+- E9 (OBSERVED, one student, 23 rows): I had not opened 12 of 23 notices, so I opened about 11 of 23 (48 percent). I round this to q_now = 0.5. It is a weak number: the tick may not mean "read" (E16).
+- Not collected: any measured minutes for reading, issuing or support (see "What I did not collect" in `evidence-log.md`).
 
-## 2. Formula (per cohort per week)
+## 2. Formula (per week)
 
-Gross saving = (time per student now - time per student with the new design) x number of students
-Net saving = gross saving - review effort - support effort
+Per student per week: saved = N x [ (q_now - p) x t_open - p x t_ack ]
+- q_now: share of notices a student opens now (ESTIMATE 0.5).
+- p: share a student still opens when priority, deadline and acknowledgement are visible in the list (ASSUMPTION).
+- t_open: minutes to open and read one notice (ASSUMPTION).
+- t_ack: minutes to press acknowledge on an opened notice (ASSUMPTION, 0.1).
 
-- Time now = N x t_open
-- Time new = N x t_glance + N x p x t_open
-- Review effort = N x t_review + N x f x t_fail
-- Support effort = fixed minutes per week for student questions
+Cohort gross saved = saved per student x S, with S = 100 students (ASSUMPTION; the real audience size is unknown).
+Costs per week: issuer effort = N x t_issue (extra minutes to fill priority and deadline), plus fixed support effort (questions, escalation follow-up).
+Net = cohort gross saved - issuer effort - support effort.
 
-## 3. Inputs (all [ASSUMPTION])
+## 3. Inputs (all ASSUMPTION unless marked)
 
 | Symbol | Meaning | Low | Base | High |
 |--------|---------|----:|-----:|-----:|
+| N | notices per week (ESTIMATE, E6 and E8) | 3 | 4 | 5 |
 | S | students in the audience | 100 | 100 | 100 |
-| N | notices per week for that audience | 5 | 10 | 15 |
-| t_open | minutes to open and read one notice now | 1.0 | 1.5 | 2.0 |
-| t_glance | minutes to glance at a one-line summary | 0.25 | 0.25 | 0.25 |
-| p | share of notices a student still opens fully | 0.6 | 0.3 | 0.2 |
-| t_review | minutes for the issuer to check a summary | 1 | 1 | 1 |
-| f | share of items that fail or are flagged | 0.1 | 0.1 | 0.1 |
-| t_fail | minutes to handle one failed item by hand | 10 | 10 | 10 |
-| support | minutes per week answering questions | 10 | 10 | 10 |
+| q_now | share opened now (ESTIMATE, E9) | 0.5 | 0.5 | 0.5 |
+| p | share still opened with the new design | 0.45 | 0.30 | 0.25 |
+| t_open | minutes to read one notice | 1.0 | 1.5 | 2.0 |
+| t_ack | minutes to acknowledge | 0.1 | 0.1 | 0.1 |
+| t_issue | extra minutes per notice for the issuer | 2.0 | 1.0 | 0.5 |
+| support | minutes per week of support effort | 30 | 20 | 10 |
 
-## 4. Results (calculated, checked with a short Python script)
+## 4. Results (checked by hand twice)
 
-| Scenario | Time now per student (min/week) | Time new per student | Gross saved per student | Gross saved per cohort | Review + support | NET saved per cohort (min/week) | NET per student (min/week) |
-|----------|-------:|-------:|-------:|--------:|-------:|---------:|--------:|
-| Low | 5.0 | 4.25 | 0.75 | 75 | 20 | 55 | 0.55 |
-| Base | 15.0 | 7.0 | 8.0 | 800 | 30 | 770 | 7.7 |
-| High | 30.0 | 9.75 | 20.25 | 2025 | 40 | 1985 | 19.85 |
+Per notice per student: (q_now - p) x t_open - p x t_ack
+- Low: (0.5 - 0.45) x 1.0 - 0.45 x 0.1 = 0.05 - 0.045 = 0.005 min
+- Base: (0.5 - 0.30) x 1.5 - 0.30 x 0.1 = 0.30 - 0.03 = 0.27 min
+- High: (0.5 - 0.25) x 2.0 - 0.25 x 0.1 = 0.50 - 0.025 = 0.475 min
 
-Base example: now 10 x 1.5 = 15. New 10 x 0.25 + 10 x 0.3 x 1.5 = 2.5 + 4.5 = 7.0. Gross 8.0 x 100 = 800. Review 10 x 1 + 10 x 0.1 x 10 = 20, plus support 10 = 30. Net 800 - 30 = 770 min = 12.8 hours per week for the cohort.
+| Scenario | Saved per student (min/week) | Gross saved, cohort of 100 (min/week) | Issuer effort | Support effort | NET, cohort (min/week) | NET per student (min/week) |
+|----------|------:|------:|------:|------:|------:|------:|
+| Low | 0.015 | 1.5 | 6.0 (3 x 2.0) | 30 | -34.5 | -0.345 |
+| Base | 1.08 | 108 | 4.0 (4 x 1.0) | 20 | 84 | 0.84 |
+| High | 2.375 | 237.5 | 2.5 (5 x 0.5) | 10 | 225 | 2.25 |
 
-## 5. What this means
-- [ESTIMATE] Under all three scenarios net saving stays positive, because review and support effort is a small fixed cost.
-- [ESTIMATE] The result is most sensitive to p (how often students still open the notice) and t_open. If students do not trust the summary and open everything, the saving shrinks towards zero.
-- [ASSUMPTION] None of these inputs were measured. The next step would be to time real students reading real notices, with their consent.
-- Not counted: time to build and maintain the system, OCR errors that mislead a student, and the cost of a missed notice.
-- [ASSUMPTION] A summary is shown for every notice and the original is always one click away.
+## 5. What this means (honestly)
+- The saving per student is small: about 0 to 2.4 minutes per week.
+- In the low scenario the NET is NEGATIVE (-34.5 min per week for the cohort): if students still open almost everything, the extra issuer and support effort is not paid back.
+- The result is most sensitive to p and to the support minutes. These are the numbers I most need to measure.
+- The main benefit of the design is probably not time. It is that important notices become visible and a sender can see an acknowledgement count. I did not measure that benefit and it is not in this calculation.
+- Not counted: the effort to build and maintain the system, and the cost of a student missing an important notice.
+
+## 6. Limits
+- No measured data; all time values are my assumptions, so the table is a model, not a result about the real college.
+- q_now comes from one student's 23 rows. It is not scaled to all students or all 809 notices.
+- A better next step would be to time a few consenting students and issuers with real notices.
