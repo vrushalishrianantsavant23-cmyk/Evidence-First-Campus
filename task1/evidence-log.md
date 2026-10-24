@@ -13,25 +13,21 @@ Rules for this log:
 |---|------|-----|--------------------------|-------------|------------|
 | 1 | 2026-10-23 | [OBSERVED] | The Notice Board of my own SIS view shows 808 notices in total. | My own SIS login, Notice Board page, screenshot not committed | One student's view only |
 | 2 | 2026-10-23 | [OBSERVED] | In the top 10 rows, 5 notices were marked viewed and 5 were not viewed. | Same screenshot | Only 10 rows, so not representative |
-| 3 | 2026-10-24 | to fill | Count of viewed vs not viewed in a larger sample (for example the top 50 rows) | My own SIS view | |
-| 4 | 2026-10-24 | to fill | Who issues notices (role only, no names) | Asking staff, if available | |
-| 5 | 2026-10-24 | to fill | How students are told that a notice exists (SIS only, or also WhatsApp, email, boards) | Asking staff or students, if available | |
-| 6 | 2026-10-24 | to fill | Is there an approval step before a notice is published | Asking staff, if available | |
-| 7 | 2026-10-24 | to fill | What happens when a notice has a mistake or must be withdrawn | Asking staff, if available | |
-| 8 | 2026-10-24 | to fill | Does a "viewed" mark mean the student read it, or only opened the page | My own SIS view | |
+| 3 | 2026-10-24 | [OBSERVED] | My SIS view has no option to show 50 rows or to filter by viewed / not viewed, so I could not collect a larger sample. | My own SIS view | The scale estimate stays based on 10 rows |
+| 4 | 2026-10-24 | [OBSERVED] | I asked at the college in person. Permission to study the process with staff was NOT given. I did not interview staff or students. | In person at the college | No staff information on who issues notices, approvals or withdrawals |
+| 5 | 2026-10-24 | [OBSERVED] | A faculty member verbally suggested making a template of the process, and suggested these ideas: a campus placement portal, OCR text extraction from notices into a dashboard, two-way messaging (to one faculty or to everyone), and a personalised chatbot. | Verbal suggestion, no name recorded | A suggestion only, not an approved college feature |
+| 6 | 2026-10-24 | [ASSUMPTION] | Who issues notices, whether there is an approval before publishing, and what happens when a notice has a mistake. | Not investigated | Shown as dotted lines in `process-map.md` |
+| 7 | 2026-10-24 | [ASSUMPTION] | How students hear about notices outside the SIS (WhatsApp, email, boards). | Not investigated | |
+| 8 | 2026-10-24 | to fill | Does a "viewed" mark mean the student read it, or only opened the page. | My own SIS view, only if I test it myself | |
 
-## Sampling plan for 24 Oct 2026 (my own SIS view only)
-
-1. Open the Notice Board and set the page to show as many rows as possible.
-2. Count the rows marked viewed and not viewed in the first 50 rows (or fewer, if fewer exist).
-3. Write the two counts in row 3. [ESTIMATE] scale of the problem = not viewed / sample size, applied to 808 total notices only as a rough guess.
-4. Do not copy notice titles, names or attachments.
+## Scale estimate
+- [OBSERVED] 808 notices in total; 5 of the top 10 not viewed.
+- [ESTIMATE] 5 of 10 is 50% not viewed. A 95% Wilson interval for 5 of 10 is about 24% to 76%, so the sample is too small to say anything firm. I do not scale it up to 808.
 
 ## Permission status
-
-- [OBSERVED] 2026-10-23: I have no written permission from the college for this study.
-- Plan: on 2026-10-24 I will ask staff in person and record only what they allow. If no permission or nobody is available, this is stated under Limitations and only my own SIS view is used.
+- [OBSERVED] 2026-10-24: permission was not given (row 4).
+- The only real data in this study is what my own student login shows about my own Notice Board view (rows 1 to 3). Everything else about the inside of the process is an [ASSUMPTION]. The improved process is a proposal tested with synthetic cases.
 
 ## Source pages used for context
 
-(none yet for Task 1)
+(none for Task 1)
