@@ -117,6 +117,7 @@ pytest -v task1/simulator
 ```
 
 Expected: 8 tests collected, 8 passed. The same command runs on every push via [`.github/workflows/tests.yml`](.github/workflows/tests.yml).
+
 ## Task 2: curriculum audit and proposal
 
 Full report: [`task2/report.md`](task2/report.md). Data: [`task2/data/`](task2/data/). Credits come from the college SIS (I read it myself); no grades are used. I did not read a separate regulations document.
@@ -158,7 +159,7 @@ Three job posts are a small sample: a pattern, not the job market.
 
 **Capstone from Task 1:** SP301 Special Project becomes a "Workflow Reliability" capstone: students map a small workflow, keep a dated evidence log, build a status engine, test five synthetic cases on GitHub Actions, and model net time saved. It is a proposal; I do not know what SP301 contains today. Details: [`task2/report.md`](task2/report.md) section 8.
 
-**Feedback:** I have not received feedback from any faculty member, graduate or senior. I will not write feedback I did not receive.
+**Feedback:** I received 1 voluntary written comment (WhatsApp message, 24 Oct 2026) from a faculty in-charge (role only, no name). It was about the calculator, not the full report, and the person was not independently verified. She found the semester-wise before and after credits and the calculations clear, and suggested a short explanation of ADD, UPDATE and REDUCE; I have not added that yet. No graduate feedback was received. Details: [`task2/report.md`](task2/report.md) section 9.
 
 ## AI use
 
@@ -207,7 +208,8 @@ Oral statements from a senior academic official (role only, no name) are unverif
 - Three job descriptions are a weak basis, and absence from three posts is weak evidence for REDUCE. JD3 does not state experience.
 - CS415 shows "Only CSE" in a timetable I saw although it is on my transcript: unresolved.
 - The counting rule for changed credits is my assumption.
-- The capstone is a proposal, not tried with students. No feedback received.
+- The capstone is a proposal, not tried with students.
+- Feedback is a single written comment from one faculty in-charge, on the calculator only; no graduate feedback was received.
 - Each AI check used one example per subject.
 
 ## Future work (suggested orally, NOT built)
@@ -217,6 +219,3 @@ A senior academic official verbally suggested these. None is built or investigat
 ## Release
 
 Release and full commit URL: to be added in the last commit.
-
-
-
