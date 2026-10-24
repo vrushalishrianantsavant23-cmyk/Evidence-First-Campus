@@ -134,4 +134,4 @@ Name: Workflow Reliability capstone. SP301 Special Project (Sem VI, 3 credits) b
 - CS415 appears with an "Only CSE" label in an elective timetable I saw, yet it is on my own transcript. I did not resolve which branches take it.
 - The counting rule for changed credits is my assumption. Other rules give 7.2 to 25.3 percent.
 - The capstone is a proposal and has not been tried with students.
-- No feedback has been received yet.
+- Feedback: only one voluntary written comment from one faculty in-charge, on the calculator and not the full report (section 9). No graduate feedback was received.
