@@ -119,7 +119,12 @@ Name: Workflow Reliability capstone. SP301 Special Project (Sem VI, 3 credits) b
 - Link to job descriptions: JD1 (testing and evaluation), JD2 (data quality checks and monitoring), JD3 (API integration).
 
 ## 9. Feedback
-At the time of writing (24 Oct 2026) I have not received voluntary feedback on this proposal from a faculty member, graduate or senior. I will not write feedback that I did not receive. If any arrives before submission, it will be added here with the date and the role of the person, without a name.
+- Received: 1 voluntary written comment, on 24 Oct 2026, by WhatsApp message.
+- From: a faculty in-charge (role only, no name recorded).
+- What was said (my summary of her message): the calculator clearly shows semester-wise credits before and after, so the balance is visible and checkable, and the credit numbers and calculations are clear. She suggested a short explanation of ADD, UPDATE and REDUCE.
+- Limits: one comment from one person. I did not verify her identity beyond knowing her, no screenshot is committed (to avoid names and numbers), and she reviewed the calculator, not the full report.
+- What I did with it: the short ADD, UPDATE and REDUCE explanation is not added yet (update this line after it is done).
+- No graduate feedback was received.
 
 ## 10. Limitations
 - 9 of the 11 changed courses (the 8 UPDATE courses other than DS408, and DS303) were not checked against their syllabus; only ML302 and DS408 were. What they lack today is an ASSUMPTION.
