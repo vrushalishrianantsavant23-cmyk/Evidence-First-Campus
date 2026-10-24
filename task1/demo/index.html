@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Hub Demo - Evidence-First-Campus</title>
+<style>
+:root{--bg:#0f1419;--panel:#181f27;--line:#2a3441;--text:#e6edf3;--mute:#8b98a5;--ok:#3fb27f;--warn:#e0a93b;--bad:#e5534b;--acc:#4c9aff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+main{max-width:960px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 14px}
+.banner{border:1px solid var(--warn);color:var(--warn);border-radius:8px;padding:8px 12px;margin:10px 0 16px;font-size:13px}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+nav button,.btn{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;font:inherit}
+nav button.on{border-color:var(--acc);color:var(--acc)}
+.btn:hover,nav button:hover{border-color:var(--acc)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--mute)}
+.st{font-size:12px;border-radius:999px;padding:1px 9px;border:1px solid}
+.st.Delivered,.st.Published{color:var(--acc);border-color:var(--acc)}
+.st.Acknowledged,.st.Accepted,.st.Offered{color:var(--ok);border-color:var(--ok)}
+.st.PendingApproval,.st.Applied,.st.Shortlisted{color:var(--warn);border-color:var(--warn)}
+.st.Rejected,.st.Failed,.st.Escalated,.st.Declined{color:var(--bad);border-color:var(--bad)}
+input,select,textarea{background:#0f1419;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit;width:100%}
+label{display:block;font-size:13px;color:var(--mute);margin:8px 0 3px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:600}
+.pass{color:var(--ok)}.fail{color:var(--bad)}
+.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--ok)}
+.log{white-space:pre-wrap;font:13px/1.5 ui-monospace,Consolas,monospace;color:var(--mute)}
+.chat .me{color:var(--acc)}
+canvas{max-width:100%;border:1px solid var(--line);border-radius:8px;background:#fff}
+small{color:var(--mute)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<h1>Campus Hub Demo</h1>
+<p class="sub">Notice dashboard, assistant, OCR and placement skill-gap matcher. Part of Evidence-First-Campus (student proposal).</p>
+<div class="banner">All data on this page is [SYNTHETIC]. No real notices, students, companies or placement records. Not an official college system. Job-description skills are real (accessed 23 Oct 2026); the skill-to-course mapping is my proposal and an [ASSUMPTION].</div>
+<nav id="tabs"></nav>
+<section id="view"></section>
+</main>
+
+<script>
+// ==LOGIC START==
+const ALLOWED_ISSUERS = new Set(["faculty", "admin"]);
+const REQUIRED_FIELDS = ["title", "body", "audience"];
+const OCR_MIN_CONFIDENCE = 0.6;
+
+function createEngine() {
+  const notices = [];
+  const api = {
+    notices,
+    submit(issuer, f) {
+      f = Object.assign({ title: "", body: "", audience: "", important: false, ocrConfidence: null }, f || {});
+      const n = { id: notices.length + 1, issuer, title: f.title, body: f.body, audience: f.audience,
+        important: f.important, status: "Draft", reason: "", ackedBy: new Set() };
+      notices.push(n);
+      const missing = REQUIRED_FIELDS.filter(k => !String(n[k]).trim());
+      if (missing.length) { n.status = "Rejected"; n.reason = "missing: " + missing.join(", "); return n; }
+      for (const o of notices.slice(0, -1)) {
+        if (o.status !== "Rejected" && o.status !== "Failed" &&
+            o.title === n.title && o.body === n.body && o.audience === n.audience) {
+          n.status = "Rejected"; n.reason = "duplicate of notice " + o.id; return n;
+        }
+      }
+      if (f.ocrConfidence !== null && f.ocrConfidence < OCR_MIN_CONFIDENCE) {
+        n.status = "Failed"; n.reason = "check original notice"; return n;
+      }
+      if (ALLOWED_ISSUERS.has(issuer)) { /* published */ }
+      else if (issuer === "student") {
+        if (!n.audience.startsWith("one:")) {
+          n.status = "PendingApproval"; n.reason = "broadcast needs admin approval"; return n;
+        }
+      } else { n.status = "Rejected"; n.reason = "role not allowed"; return n; }
+      n.status = "Delivered";
+      return n;
+    },
+    get(id) { return notices[id - 1]; },
+    adminDecision(id, approve) {
+      const n = api.get(id);
+      if (n.status !== "PendingApproval") return n;
+      if (approve) { n.status = "Delivered"; n.reason = ""; }
+      else { n.status = "Rejected"; n.reason = "admin did not approve"; }
+      return n;
+    },
+    manualReview(id, text) {
+      const n = api.get(id);
+      if (n.status === "Failed") { n.body = text; n.status = "Delivered"; n.reason = "manually reviewed"; }
+      return n;
+    },
+    acknowledge(id, student) {
+      const n = api.get(id);
+      if (n.status === "Delivered" || n.status === "Acknowledged") { n.ackedBy.add(student); n.status = "Acknowledged"; }
+      return n;
+    },
+    escalate(id) {
+      const n = api.get(id);
+      if (n.important && n.status === "Delivered" && n.ackedBy.size === 0) {
+        n.status = "Escalated"; n.reason = "no acknowledgement in window";
+      }
+      return n;
+    }
+  };
+  return api;
+}
+
+function runFiveCases() {
+  const out = [];
+  const check = (name, expected, fn) => {
+    let got, ok;
+    try { got = fn(); ok = got === expected; } catch (e) { got = "error: " + e.message; ok = false; }
+    out.push({ name, expected, got, ok });
+  };
+  check("1 Normal", "Acknowledged", () => {
+    const e = createEngine(); const n = e.submit("faculty", { title: "Exam", body: "Starts Monday", audience: "sem7", important: true });
+    e.acknowledge(n.id, "s1"); return n.status; });
+  check("2 Missing information", "Rejected: missing: title", () => {
+    const e = createEngine(); const n = e.submit("faculty", { body: "Body", audience: "sem7" });
+    return n.status + ": " + n.reason; });
+  check("2b Recovery (resubmit)", "Delivered", () => {
+    const e = createEngine(); e.submit("faculty", { body: "Body", audience: "sem7" });
+    return e.submit("faculty", { title: "T", body: "Body", audience: "sem7" }).status; });
+  check("3 Duplicate", "Rejected: duplicate of notice 1", () => {
+    const e = createEngine(); const f = { title: "Holiday", body: "Closed", audience: "all" };
+    e.submit("admin", f); const n = e.submit("admin", f); return n.status + ": " + n.reason; });
+  check("4 Unauthorized broadcast", "Rejected", () => {
+    const e = createEngine(); const n = e.submit("student", { title: "Sell", body: "Books", audience: "all" });
+    if (n.status !== "PendingApproval") return n.status; e.adminDecision(n.id, false); return n.status; });
+  check("4b Recovery (message one faculty)", "Delivered", () => {
+    const e = createEngine(); return e.submit("student", { title: "Doubt", body: "Lab question", audience: "one:faculty_x" }).status; });
+  check("5 Failed step (blurry OCR)", "Failed: check original notice", () => {
+    const e = createEngine(); const n = e.submit("admin", { title: "Scan", body: "x", audience: "all", ocrConfidence: 0.3 });
+    return n.status + ": " + n.reason; });
+  check("5b Recovery (manual review)", "Delivered", () => {
+    const e = createEngine(); const n = e.submit("admin", { title: "Scan", body: "x", audience: "all", ocrConfidence: 0.3 });
+    return e.manualReview(n.id, "Lab test moved").status; });
+  check("Escalation", "Escalated", () => {
+    const e = createEngine(); const n = e.submit("faculty", { title: "Fee", body: "Pay", audience: "all", important: true });
+    return e.escalate(n.id).status; });
+  return out;
+}
+
+const MONTHS = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec";
+const DAYS = "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday";
+const TAG_RULES = [
+  [/exam|timetable/i, "Exam"], [/fee|payment/i, "Fee"], [/deadline|last date|closes|register by/i, "Deadline"],
+  [/holiday|closed/i, "Holiday"], [/\blab\b/i, "Lab"], [/placement|interview|company/i, "Placement"],
+  [/registration|elective/i, "Registration"], [/project|review/i, "Project"], [/library/i, "Library"]
+];
+function keyPoints(text) {
+  const dateRe = new RegExp("\\b(\\d{1,2}\\s?(?:" + MONTHS + ")[a-z]*|" + DAYS + ")\\b", "gi");
+  const dates = [...new Set((text.match(dateRe) || []).map(s => s.trim()))];
+  const tags = TAG_RULES.filter(([re]) => re.test(text)).map(([, t]) => t);
+  const first = (text.split(/(?<=[.!?])\s+/)[0] || "").trim();
+  return { summary: first, dates, tags };
+}
+
+const STOP = new Set("the is are when what a an of for to in on my me do i there any about how can where which who be it and or at this that please tell".split(" "));
+function tokens(s) { return (s.toLowerCase().match(/[a-z0-9]+/g) || []).filter(w => !STOP.has(w)); }
+function stem(w) { return w.replace(/(ing|es|s)$/, ""); }
+function answer(question, notices) {
+  const q = tokens(question).map(stem);
+  let best = null, bestScore = 0;
+  for (const n of notices) {
+    if (n.status === "Rejected" || n.status === "Failed") continue;
+    const kp = keyPoints(n.title + ". " + n.body);
+    const hay = new Set(tokens(n.title + " " + n.body + " " + kp.tags.join(" ")).map(stem));
+    const titleSet = new Set(tokens(n.title).map(stem));
+    const score = q.reduce((s, w) => s + (titleSet.has(w) ? 2 : hay.has(w) ? 1 : 0), 0);
+    if (score > bestScore) { bestScore = score; best = n; }
+  }
+  if (!best || bestScore < 1) return { found: false, text: "I do not know. I only answer from the notices on this page. Please read the original notice or ask the department admin." };
+  const kp = keyPoints(best.body);
+  return { found: true, id: best.id, text: "Notice " + best.id + " (" + best.title + "): " + kp.summary + (kp.dates.length ? " Dates: " + kp.dates.join(", ") + "." : "") };
+}
+
+const COURSES = {
+  CS206: "DBMS (UPDATE)", DS305: "Data Wrangling and Visualization (UPDATE)", DS307: "Big Data Systems (UPDATE)",
+  CS205: "Web-Enabled Technologies (UPDATE)", DS202: "Industry Coding Practice (UPDATE)", CS415: "Ethical Hacking (UPDATE)",
+  CS307: "Cloud Computing (UPDATE)", DS408: "Generative AI (UPDATE)", NEW1: "AI Evaluation, Testing and Observability (ADD)",
+  NEW2: "MLOps and Deployment (ADD)"
+};
+const SKILL_MAP = {
+  "SQL": ["CS206"], "Data warehousing": ["CS206", "DS307"], "Data lakes": ["CS206", "DS307"], "ETL/ELT": ["DS305"],
+  "Power BI": ["DS305"], "PySpark": ["DS307"], "Data pipelines": ["DS307"], "APIs": ["CS205"], "API integration": ["CS205"],
+  "Microservices": ["CS205"], "Git": ["DS202"], "CI/CD": ["DS202"], "Automated testing": ["DS202", "NEW1"],
+  "AI evaluation": ["NEW1"], "Prompt engineering": ["NEW1", "DS408"], "RAG": ["DS408"], "Embeddings": ["DS408"],
+  "Tool calling": ["DS408"], "Agent frameworks": ["DS408"], "AI agents": ["DS408"], "LLM applications": ["DS408"],
+  "Claude API": ["DS408"], "Cloud": ["CS307", "NEW2"], "Azure data services": ["CS307"], "Solution architecture": ["NEW2"],
+  "Data security and governance": ["CS415"], "Python": []
+};
+const JOBS = [
+  { id: "JD1", role: "AI Engineer, Enterprise Conversational Platform", company: "HiringBlaze (likely an intermediary)", posted: "2026-10-14",
+    url: "https://www.hirist.tech/j/ai-engineer-enterprise-conversational-platform-1678232",
+    skills: ["Python", "APIs", "Data pipelines", "Microservices", "RAG", "Embeddings", "Tool calling", "Agent frameworks", "Automated testing", "Prompt engineering", "AI evaluation"] },
+  { id: "JD2", role: "Junior Data Engineer", company: "Crowe, Hyderabad", posted: "2026-10-22",
+    url: "https://crowe.wd12.myworkdayjobs.com/en-US/external_careers/job/Hyderabad-Telangana-India/Junior-Data-Engineer_R-51712-1",
+    skills: ["SQL", "ETL/ELT", "Data warehousing", "Data lakes", "Azure data services", "Python", "PySpark", "Power BI", "Data security and governance", "Git", "CI/CD"] },
+  { id: "JD3", role: "GenAI Engineer (contract)", company: "Workiy, remote", posted: "2026-09-29",
+    url: "https://workiy.zohorecruit.com/jobs/Workiy-Careers/574222000024500104",
+    skills: ["LLM applications", "Claude API", "Prompt engineering", "RAG", "AI agents", "API integration", "Cloud", "Solution architecture"] }
+];
+function matchJob(job) {
+  const rows = job.skills.map(s => ({ skill: s, courses: (SKILL_MAP[s] || []) }));
+  const mapped = rows.filter(r => r.courses.length).length;
+  return { rows, mapped, total: rows.length, pct: Math.round(100 * mapped / rows.length) };
+}
+
+const ALLOWED_NEXT = {
+  Applied: ["Shortlisted", "Rejected"], Shortlisted: ["Offered", "Rejected"],
+  Offered: ["Accepted", "Declined"], Accepted: [], Declined: [], Rejected: []
+};
+function moveApplication(app, next) {
+  if (!(ALLOWED_NEXT[app.status] || []).includes(next))
+    return { ok: false, message: "Blocked: " + app.status + " cannot go directly to " + next };
+  app.status = next; return { ok: true, message: "Moved to " + next };
+}
+// ==LOGIC END==
+
+// ==UI START==
+if (typeof document !== "undefined") {
+const SYNTH = [
+  ["faculty", "Mid-semester exam schedule", "Mid-semester exams for Semester VII start on 3 Nov. Carry your ID card to the hall.", true],
+  ["admin", "Fee payment deadline", "Last date to pay the semester fee is 31 Oct. Late payment needs approval from the accounts office.", true],
+  ["faculty", "Cloud Computing lab moved", "The Cloud Computing lab on Tuesday is moved to Wednesday, same time and room.", false],
+  ["admin", "Festival holiday", "The college will remain closed on Friday for the festival holiday.", false],
+  ["admin", "Placement talk on data engineering", "A company talk on data engineering roles is on 29 Oct at 3 PM in the auditorium. Register by 27 Oct.", false],
+  ["faculty", "Project review", "Special project review presentations are on 6 Nov. Submit slides one day before.", false],
+  ["admin", "Library timing change", "The library will close at 6 PM during exam week.", false],
+  ["faculty", "Elective registration window", "Elective registration opens on 28 Oct and closes on 30 Oct. Late changes need the department admin.", true]
+];
+const engine = createEngine();
+SYNTH.forEach(([r, t, b, i]) => engine.submit(r, { title: t, body: b, audience: "sem7", important: i }));
+const apps = [
+  { name: "Candidate A (synthetic)", job: "JD1", status: "Applied" },
+  { name: "Candidate B (synthetic)", job: "JD2", status: "Applied" },
+  { name: "Candidate C (synthetic)", job: "JD3", status: "Shortlisted" }
+];
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tabs = ["Notices", "Assistant", "OCR", "Placement", "Tests"];
+let cur = "Notices", chat = [], lastSubmit = "";
+
+function renderTabs() {
+  $("#tabs").innerHTML = tabs.map(t => '<button class="' + (t === cur ? "on" : "") + '" data-t="' + t + '">' + t + "</button>").join("");
+  $("#tabs").querySelectorAll("button").forEach(b => b.onclick = () => { cur = b.dataset.t; render(); });
+}
+function noticeCard(n) {
+  const kp = keyPoints(n.title + ". " + n.body);
+  const acts = [];
+  if (n.status === "Delivered" || n.status === "Acknowledged") acts.push('<button class="btn" data-ack="' + n.id + '">Acknowledge</button>');
+  if (n.important && n.status === "Delivered") acts.push('<button class="btn" data-esc="' + n.id + '">Simulate: reminder window passed</button>');
+  if (n.status === "PendingApproval") acts.push('<button class="btn" data-ok="' + n.id + '">Admin approves</button><button class="btn" data-no="' + n.id + '">Admin rejects</button>');
+  if (n.status === "Failed") acts.push('<button class="btn" data-man="' + n.id + '">Admin reads original manually</button>');
+  return '<div class="card"><div class="row"><b>#' + n.id + " " + esc(n.title) + '</b><span class="st ' + n.status + '">' + n.status + "</span>" +
+    (n.important ? '<span class="tag">important</span>' : "") + '<span class="tag">by ' + n.issuer + "</span></div>" +
+    '<div>' + esc(n.body) + '</div><div class="row"><small>Main point:</small> ' + kp.tags.map(t => '<span class="tag">' + t + "</span>").join("") +
+    kp.dates.map(d => '<span class="tag">' + esc(d) + "</span>").join("") + "</div>" +
+    (n.reason ? "<small>Reason: " + esc(n.reason) + "</small><br>" : "") + '<div class="row">' + acts.join("") + "</div></div>";
+}
+function viewNotices() {
+  return '<div class="card"><b>Submit a notice or message</b><div class="grid2"><div><label>Role</label><select id="role"><option>faculty</option><option>admin</option><option selected>student</option></select>' +
+    '<label>Audience (all, sem7, or one:faculty_x)</label><input id="aud" value="all"></div><div><label>Title</label><input id="ttl" value="Books for sale">' +
+    '<label>Body</label><input id="bdy" value="Selling old textbooks"></div></div><div class="row" style="margin-top:8px"><button class="btn" id="sub">Submit</button>' +
+    '<small>Try: student + all (needs approval), student + one:faculty_x (direct), empty title, or submit the same twice.</small></div><small id="subres">' + esc(lastSubmit) + "</small></div>" +
+    engine.notices.slice().reverse().map(noticeCard).join("");
+}
+function bindNotices() {
+  $("#sub").onclick = () => {
+    const n = engine.submit($("#role").value, { title: $("#ttl").value, body: $("#bdy").value, audience: $("#aud").value });
+    lastSubmit = "Result: #" + n.id + " is " + n.status + (n.reason ? " (" + n.reason + ")" : ""); render();
+  };
+  document.querySelectorAll("[data-ack]").forEach(b => b.onclick = () => { engine.acknowledge(+b.dataset.ack, "student_demo"); render(); });
+  document.querySelectorAll("[data-esc]").forEach(b => b.onclick = () => { engine.escalate(+b.dataset.esc); render(); });
+  document.querySelectorAll("[data-ok]").forEach(b => b.onclick = () => { engine.adminDecision(+b.dataset.ok, true); render(); });
+  document.querySelectorAll("[data-no]").forEach(b => b.onclick = () => { engine.adminDecision(+b.dataset.no, false); render(); });
+  document.querySelectorAll("[data-man]").forEach(b => b.onclick = () => { engine.manualReview(+b.dataset.man, "Read manually from the original notice."); render(); });
+}
+function viewAssistant() {
+  return '<div class="card chat"><b>Rule-based notice assistant</b><br><small>Keyword search over the notices on the Notices tab. No language model. It says "I do not know" when nothing matches.</small>' +
+    '<div class="log" style="margin:10px 0">' + chat.map(m => '<span class="' + (m.me ? "me" : "") + '">' + (m.me ? "You: " : "Bot: ") + esc(m.t) + "</span>").join("\n") + "</div>" +
+    '<div class="row"><input id="q" placeholder="e.g. When are the exams? Is the library open late? What is the fee deadline?" style="flex:1"><button class="btn" id="ask">Ask</button></div></div>';
+}
+function bindAssistant() {
+  const go = () => { const q = $("#q").value.trim(); if (!q) return; chat.push({ me: true, t: q }); chat.push({ me: false, t: answer(q, engine.notices).text }); render(); };
+  $("#ask").onclick = go; $("#q").onkeydown = e => { if (e.key === "Enter") go(); };
+}
+const OCR_SAMPLE = "Lab test for Cloud Computing is moved to Wednesday 4 Nov. Bring your record book.";
+function viewOCR() {
+  return '<div class="card"><b>Notice image to dashboard (OCR)</b><br><small>A synthetic notice is drawn on a canvas, optionally blurred, then read with Tesseract.js in your browser. Low confidence goes to the Failed status with a manual fallback. The original image is always kept.</small>' +
+    '<label>Synthetic notice text</label><textarea id="otxt" rows="2">' + esc(OCR_SAMPLE) + '</textarea><label>Blur (0 clear to 6 very blurry)</label><input id="blur" type="range" min="0" max="6" step="0.5" value="0">' +
+    '<div class="row" style="margin:8px 0"><button class="btn" id="draw">Draw image</button><button class="btn" id="run">Run OCR</button></div><canvas id="cv" width="760" height="150"></canvas>' +
+    '<div class="log" id="ocrout" style="margin-top:8px"></div></div>';
+}
+function drawNotice() {
+  const c = $("#cv"), x = c.getContext("2d");
+  x.filter = "none"; x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
+  x.filter = "blur(" + $("#blur").value + "px)"; x.fillStyle = "#000"; x.font = "26px Arial, sans-serif";
+  const words = $("#otxt").value.split(/\s+/); let line = "", y = 40;
+  for (const w of words) { const t = line ? line + " " + w : w; if (x.measureText(t).width > 720 && line) { x.fillText(line, 20, y); y += 36; line = w; } else line = t; }
+  x.fillText(line, 20, y); x.filter = "none";
+}
+async function runOCR() {
+  const out = $("#ocrout"); out.textContent = "Loading OCR engine (needs internet)...";
+  try {
+    if (!window.Tesseract) await new Promise((res, rej) => { const s = document.createElement("script");
+      s.src = "https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.1.1/tesseract.min.js"; s.onload = res; s.onerror = () => rej(new Error("could not load Tesseract.js")); document.head.appendChild(s); });
+    const r = await window.Tesseract.recognize($("#cv"), "eng");
+    const conf = r.data.confidence / 100, text = r.data.text.trim();
+    const n = engine.submit("admin", { title: "Scanned notice (OCR)", body: text || "(nothing read)", audience: "sem7", ocrConfidence: conf });
+    const kp = keyPoints(text);
+    out.textContent = "OCR confidence: " + conf.toFixed(2) + " (threshold " + OCR_MIN_CONFIDENCE + ")\nText read: " + text + "\nResult: notice #" + n.id + " is " + n.status +
+      (n.reason ? " (" + n.reason + ")" : "") + "\nMain point: " + (n.status === "Failed" ? "not shown, check original notice" : kp.tags.concat(kp.dates).join(", ")) + "\nSee it on the Notices tab.";
+  } catch (e) {
+    const n = engine.submit("admin", { title: "Scanned notice (OCR failed)", body: "image not read", audience: "sem7", ocrConfidence: 0 });
+    out.textContent = "OCR step failed: " + e.message + "\nFallback used: notice #" + n.id + " is " + n.status + " (" + n.reason + "). Open the Notices tab to use the manual fallback.";
+  }
+}
+function bindOCR() { $("#draw").onclick = drawNotice; $("#run").onclick = runOCR; $("#blur").oninput = drawNotice; $("#otxt").oninput = drawNotice; drawNotice(); }
+
+function viewPlacement() {
+  const jobs = JOBS.map(j => { const m = matchJob(j); return '<div class="card"><b>' + j.id + ": " + esc(j.role) + '</b> <small>' + esc(j.company) + ", posted " + j.posted + ' (<a href="' + j.url + '" style="color:var(--acc)">source</a>)</small>' +
+    '<div class="row"><small>' + m.mapped + " of " + m.total + " listed skills mapped to a course in my proposal (" + m.pct + '%)</small></div><div class="bar"><i style="width:' + m.pct + '%"></i></div>' +
+    '<table><tr><th>Skill in the job post</th><th>Course in my proposal</th></tr>' +
