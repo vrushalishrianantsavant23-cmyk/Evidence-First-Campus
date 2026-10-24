@@ -1,31 +1,40 @@
-# Task 1 Process Map: Notice Board to Student
+# Task 1 Process Map: how a notice reaches students (SIS Notice Board)
 
-Legend: solid lines are [OBSERVED] in my own student SIS view. Dotted lines are [ASSUMPTION]; I did not get permission to study the inside of the process.
+Legend: solid lines are things I saw on my own student login (OBSERVED) or things a senior academic official told me orally (not verified). Dotted lines are unknown or ASSUMPTION. Evidence IDs (E1 to E18) point to `evidence-log.md`.
 
 ```mermaid
 flowchart TD
-  A["Notice created by an issuer (role unknown)"] -. assumed .-> B["Approval before publishing? (not verified)"]
-  B -. assumed .-> C["Published on SIS Notice Board"]
-  C --> D["Student sees a list: viewed / not viewed"]
-  D --> E{"Student opens the notice?"}
-  E -- yes --> F["Marked viewed (assumed to mean opened)"]
-  E -- no --> G["Stays not viewed"]
-  G -. assumed .-> H["Student may miss it, or hear about it on another channel"]
-  C -. assumed .-> X["Mistake found: correct or withdraw (not verified)"]
+  A["Issuer decides to send a notice"] -.->|approval unknown, E14| B["Notice posted on the SIS Notice Board"]
+  B -.->|assumed, E15| S["Sender knows it was sent"]
+  B --> C["List ordered by date, newest first, E4"]
+  C --> D["Student opens the Notice Board"]
+  D --> E{"Student opens this notice?"}
+  E -->|yes| F["Viewed tick, my own account only, E3"]
+  E -->|no| G["Cross stays, E3"]
+  F --> H["No feedback or acknowledgement to the sender, E13"]
+  G --> H
+  B --> I["Mistake found in a notice"]
+  I --> J["Correction sent as a NEW notice, old one stays, E12"]
+  J --> B
 ```
 
 ## Steps, handoffs, approvals, exceptions
 
-| Step | Handoff | Approval | Exception | Tag |
-|------|---------|----------|-----------|-----|
-| Notice appears on the Notice Board | issuer to SIS to student | unknown | none seen | [OBSERVED] that it appears, [ASSUMPTION] for the rest |
-| Student sees viewed / not viewed mark | SIS to student | none | 5 of the top 10 rows were not viewed on 2026-10-23 | [OBSERVED] |
-| Student opens notice | student | none | student never opens it | [ASSUMPTION] |
-| Mistake in a notice | issuer | unknown | withdraw or correct | [ASSUMPTION] |
-| Student wants to reply or ask | no in-SIS reply seen | none | falls back to mail or other channels | [ASSUMPTION] |
+| # | Step | Handoff | Approval | Exception | Evidence |
+|---|------|---------|----------|-----------|----------|
+| 1 | Issuer decides to send a notice | issuer to SIS | UNKNOWN (the official declined to answer) | unknown | E14 (oral), E18 (assumption) |
+| 2 | Notice is posted on the board | SIS to students | none seen | after sending it cannot be edited or deleted | E12 (oral) |
+| 3 | Sender knows it was sent | none | none | not known | E15 (assumption) |
+| 4 | Student sees a date-ordered list | SIS to student | none | no priority, category or deadline field | E4 (observed) |
+| 5 | Student opens a notice | student | none | student never opens it (12 of 23 sampled rows had a cross on my account) | E9 (observed, one student, small sample) |
+| 6 | Viewed tick or cross is shown | SIS to student | none | the mark is for my own account only | E3 (observed) |
+| 7 | Feedback to sender | none | none | nobody sees who viewed; no acknowledgement option | E13 (oral) |
+| 8 | Correction | issuer to SIS | unknown | correction goes out as a separate new notice | E12 (oral) |
 
-## Problem (short)
+## Gaps (what the current process does not give)
 
-- [OBSERVED] 808 notices in my view, and 5 of the top 10 were not viewed. A student must open notices one by one to find what matters.
-- [ASSUMPTION] Important notices can get lost among many others, and replying needs a separate channel such as mail.
-- Scale estimate will be added from the 50-row sample in `evidence-log.md`.
+- No priority, category or deadline field (E4), so an urgent notice looks like any other.
+- No view or acknowledgement information for the sender (E13).
+- No way to correct a notice in place (E12), so the old wrong notice stays visible.
+- Approval chain, who may issue notices, and any other channels (mail, WhatsApp, boards) are unknown to me (E14, E18).
+- Everything here is from one student's view plus oral statements. It is not a verified map of the college process.
