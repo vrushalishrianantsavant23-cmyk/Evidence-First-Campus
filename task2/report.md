@@ -122,7 +122,7 @@ Name: Workflow Reliability capstone. SP301 Special Project (Sem VI, 3 credits) b
 At the time of writing (24 Oct 2026) I have not received voluntary feedback on this proposal from a faculty member, graduate or senior. I will not write feedback that I did not receive. If any arrives before submission, it will be added here with the date and the role of the person, without a name.
 
 ## 10. Limitations
-- - 9 of the 11 changed courses (the 8 UPDATE courses other than DS408, and DS303) were not checked against their syllabus; only ML302 and DS408 were. What they lack today is an ASSUMPTION.
+- 9 of the 11 changed courses (the 8 UPDATE courses other than DS408, and DS303) were not checked against their syllabus; only ML302 and DS408 were. What they lack today is an ASSUMPTION.
 - Course credits are from the college SIS. I did not read a separate regulations document, and the 15 credits of IP-II are my planned Semester VIII internship, not yet registered.
 - Three job descriptions are a weak basis. JD3 does not state experience, and JD1 may come from an intermediary.
 - Absence from three job posts is weak evidence for REDUCE.
