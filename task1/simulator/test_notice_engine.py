@@ -52,3 +52,24 @@ def test_escalation_of_unacknowledged_important_notice():
     n = e.submit("faculty", "Fee deadline", "Pay by Friday", "all", important=True)
     e.escalate_if_unacknowledged(n.id)
     assert n.status == "Escalated"
+
+
+def test_7_correction_supersedes_old_notice():
+    e = Engine()
+    old = e.submit("faculty", "Exam hall", "Hall A", "sem7", important=True)
+    new = e.submit("faculty", "Exam hall corrected", "Hall B", "sem7",
+                   important=True, supersedes=old.id)
+    assert new.status == "Delivered"
+    assert old.status == "Superseded"
+    assert old.reason == f"replaced by notice {new.id}"
+    bad = e.submit("faculty", "Another", "Some text", "sem7", supersedes=99)
+    assert bad.status == "Rejected"
+
+
+def test_8_ack_count_does_not_double_count():
+    e = Engine()
+    n = e.submit("admin", "Holiday list", "Closed on Friday", "all")
+    e.acknowledge(n.id, "student_a")
+    e.acknowledge(n.id, "student_a")
+    e.acknowledge(n.id, "student_b")
+    assert n.ack_count == 2
