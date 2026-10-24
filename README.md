@@ -225,9 +225,6 @@ Oral statements from a senior academic official (role only, no name) are unverif
 - Each AI check used one example per subject.
 
 ## Future work (suggested orally, NOT built)
-
 A senior academic official verbally suggested these. None is built or investigated: campus placement portal, OCR of notices into a dashboard, personalised chatbot. Only the two-way messaging rule exists (inside the simulator, tested by test 4). Elective registration reminders: an idea, not investigated.
-
 ## Release
-
 Release and full commit URL: to be added in the last commit.
