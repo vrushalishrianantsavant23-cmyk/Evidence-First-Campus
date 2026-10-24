@@ -11,6 +11,7 @@ How a notice reaches students through the SIS Notice Board. I studied it from my
 | My own SIS student login | Counts, dates and viewed marks of my own account (E1 to E10) | My own account only; no other student's data |
 | Oral answers by a senior academic official (role only, no name) | E11 to E14 | Given voluntarily and orally, not in writing; one question was declined and I respected that |
 | Synthetic data | All test cases and all time-saving inputs | Made up by me for testing; not real notices or real people |
+| Sem VII elective timetable and basket list, given to me by the college (date not recorded) | Which elective courses exist and which baskets they sit in; used only as context for Task 2 | Given to me by the college as a student. I did not get separate written permission to republish it, so I copied no faculty names and uploaded no image, only course titles |
 
 Where I did not have permission or data (approval chain, sender side, time spent), I did not collect it. I used ASSUMPTION labels or synthetic cases instead.
 
