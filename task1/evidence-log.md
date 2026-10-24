@@ -21,14 +21,14 @@ No names, student IDs, grades, notice titles, notice contents or screenshots are
 | E4 | 23-24 Oct 2026, time not recorded | OBSERVED | The list is ordered newest first. Columns: number, title, viewed mark, date. There is no priority, category or deadline field. | My own SIS login |
 | E5 | 24 Oct 2026 | OBSERVED | Notice 1 is dated 23 Oct 2026. Notice 25 is dated 27 Aug 2026. | My own SIS login |
 | E6 | 24 Oct 2026 | ESTIMATE | 25 notices over about 57 days (58 if both end dates are counted) is about 3.0 notices per week (recent rate). | Calculated from E5 |
-| E7 | 24 Oct 2026 | OBSERVED | The oldest notice (number 809) is dated 6 Aug 2023. It is a timetable notice, marked viewed. | My own SIS login |
+| E7 | 24 Oct 2026 | OBSERVED | The oldest notice (number 809) is dated 6 Aug 2023. It is marked viewed. | My own SIS login |
 | E8 | 24 Oct 2026 | ESTIMATE | 809 notices over 1,175 days (about 168 weeks) is about 4.8 notices per week overall. I use the range 3 to 5 notices per week. | Calculated from E7 and E1 |
 | E9 | 23-24 Oct 2026, time not recorded | OBSERVED | I looked at 23 rows (numbers 1 to 10 and 25 to 37). Numbers 1 to 10: 4 viewed, 6 not viewed. Numbers 25 to 37: 7 viewed, 6 not viewed. Total: 11 viewed, 12 not viewed (52 percent not viewed; 95 percent Wilson interval about 33 to 71 percent). The sample is small, not random and one student's view, so I do not scale it to 809. | My own SIS login; interval is my ESTIMATE |
 | E10 | 23-24 Oct 2026, time not recorded | OBSERVED | Two of the seen notices have a course I am taking this semester in the title: one viewed, one not viewed. | My own SIS login |
-| E11 | 24 Oct 2026 | OBSERVED (oral) | Notices are posted whenever needed. There is no fixed number per week. | Verbal statement, dean (role only), not verified |
-| E12 | 24 Oct 2026 | OBSERVED (oral) | Once a notice is sent it cannot be edited or deleted. A correction goes out as a separate new notice. | Verbal statement, dean (role only), not verified |
-| E13 | 24 Oct 2026 | OBSERVED (oral) | Neither the sender side nor the student side shows who viewed a notice. There is no acknowledgement option on either side. | Verbal statement, dean (role only), not verified |
-| E14 | 24 Oct 2026 | OBSERVED (oral) | I asked how notices are created and approved. The official declined to answer and called it confidential. I did not press. | Verbal statement, dean (role only), not verified |
+| E11 | 24 Oct 2026 | OBSERVED (oral) | Notices are posted whenever needed. There is no fixed number per week. | Verbal statement, senior academic official (role only), not verified |
+| E12 | 24 Oct 2026 | OBSERVED (oral) | Once a notice is sent it cannot be edited or deleted. A correction goes out as a separate new notice. | Verbal statement, senior academic official (role only), not verified |
+| E13 | 24 Oct 2026 | OBSERVED (oral) | Neither the sender side nor the student side shows who viewed a notice. There is no acknowledgement option on either side. | Verbal statement, senior academic official (role only), not verified |
+| E14 | 24 Oct 2026 | OBSERVED (oral) | I asked how notices are created and approved. The official declined to answer and called it confidential. I did not press. | Verbal statement, senior academic official (role only), not verified |
 | E15 | 24 Oct 2026 | ASSUMPTION | The sender knows that a notice was sent. | Not verified |
 | E16 | 24 Oct 2026 | ASSUMPTION | A cross means I did not open that notice. It does not mean I missed the content, because title and date are visible without opening. | Not verified |
 | E17 | 24 Oct 2026 | ASSUMPTION | The system probably stores the view state per student but does not show it to senders. | Not verified |
@@ -40,7 +40,7 @@ No names, student IDs, grades, notice titles, notice contents or screenshots are
 - The sample in E9 is one student's view, small and not random. It is not scaled to all 809 notices or to all students.
 
 ## Suggestions heard (not approved, not built, not investigated)
-The dean or faculty verbally suggested these template ideas: a campus placement portal, OCR text extraction from notices into a dashboard, two-way messaging (to one faculty or to everyone), and a personalised chatbot. These are suggestions only, not approved college features.
+A senior academic official or faculty verbally suggested these ideas: a campus placement portal, OCR text extraction from notices into a dashboard, two-way messaging (to one faculty or to everyone), and a personalised chatbot. These are suggestions only, not approved college features. In this repo only the two-way messaging rule is built (in the synthetic simulator); the others are NOT built.
 
 ## Permission and participation
 - No written permission was obtained.
@@ -55,4 +55,4 @@ The dean or faculty verbally suggested these template ideas: a campus placement 
 - The real approval chain for notices (E14, E18).
 
 ## Correction note
-An earlier draft of this log (still visible in the commit history) was written before I spoke to the dean. It said permission was not given, that I interviewed nobody, and that I could only use 10 rows. This version replaces it: the sample is 23 rows (E9) and a senior official answered some questions orally (E11 to E14).
+An earlier draft of this log (still visible in the commit history) was written before I spoke to the senior academic official. It said permission was not given, that I interviewed nobody, and that I could only use 10 rows. This version replaces it: the sample is 23 rows (E9) and a senior official answered some questions orally (E11 to E14).
