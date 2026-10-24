@@ -158,8 +158,6 @@ pytest -v task1/simulator
 ```
 
 Expected: 8 tests collected, 8 passed. The same command runs on every push through [`.github/workflows/tests.yml`](.github/workflows/tests.yml).
-
-
 ## Task 2: curriculum audit and proposal
 
 Full report: [`task2/report.md`](task2/report.md). Data: [`task2/data/`](task2/data/). Credits come from the college SIS (I read it myself); no grades are used anywhere. I did not read a separate regulations document.
@@ -212,67 +210,3 @@ SP301 Special Project becomes a "Workflow Reliability" capstone: students map a 
 ### Feedback
 
 At the time of writing I have not received feedback from any faculty member, graduate or senior. I will not write feedback I did not receive.
-
-## AI use
-
-All five AI-assisted exercises used Claude Sonnet 5.5 on 23 Oct 2026. The checking code was written with Claude's help; I ran it myself and compared the results. Full prompts, outputs and checks: [`task2/ai-use/ai-use-record.md`](task2/ai-use/ai-use-record.md).
-
-| # | Subject | Exercise | How I verified | Result |
-|---|---------|----------|----------------|--------|
-| 1 | Computer Networks | Split 192.168.10.0/24 into /27 subnets | Python `ipaddress`; checked by hand that 3 borrowed bits are needed | Correct |
-| 2 | DBMS | Normalize an Orders table to 3NF | Ran the SQL in SQLite Online; checked each dependency by hand | Correct (my first run failed because I ran it twice; fixed with DROP TABLE IF EXISTS) |
-| 3 | Algorithms | T(n) = 3T(n/2) + n^2 by Master theorem | Python recursion; checked case 3 by hand | Correct: Theta(n^2) |
-| 4 | Operating Systems | SRTF and Round Robin (q = 3) waiting times | Python simulation | Correct: 6.5 and 13.5 |
-| 5 | Deep Learning | Gradients of one sigmoid neuron with MSE | Central-difference numerical check | Correct for the 1/2 convention |
-
-## Personal contribution
-
-| What I did myself | What Claude drafted (and I reviewed) |
-|-------------------|--------------------------------------|
-| Read my own SIS Notice Board and recorded the counts and dates (E1 to E18) | The wording of reports and tables |
-| Read my own credits in the SIS and entered them in `courses.csv` | The structure of the proposal files and the calculator code |
-| Found and chose the three real job descriptions | The Mermaid diagrams and the simulator code |
-| Ran the tests on GitHub Actions and the calculator in my own browser | The checking code for the five AI exercises |
-| Decided what is built and what is not (placement portal, OCR and chatbot are NOT built) | |
-| Corrected errors found during review | |
-
-## Sources and access dates
-
-| Source | Used for | Accessed |
-|--------|----------|----------|
-| College SIS Notice Board (my own login) | Notice counts and dates, Task 1 | 23 and 24 Oct 2026 |
-| College SIS (my own login) | Course credits, Task 2 | 23 Oct 2026 |
-| Elective timetable and basket list given to me by the college (not republished) | Checking Sem VII elective credits | date not recorded |
-| https://ifheindia.org/icfai-tech-school-hyderabad/icfaitech-internship | Internship rules | 23 Oct 2026 |
-| https://ifheindia.org/lp/icfaitech2025 | Internship rules | 23 Oct 2026 |
-| JD1, JD2, JD3 (links above) | Job description comparison | 23 Oct 2026 |
-
-Oral statements from a senior academic official (role only, no name) are unverified. No written permission was received.
-
-## Limitations (all in one place)
-
-- No written permission. Task 1 uses only my own SIS account, oral statements and synthetic data. The official declined to explain how notices are created and approved, so that part is not mapped.
-- The 12 of 23 sample is one student and not random; it is not scaled to 809 notices.
-- The net-time-saved numbers are a model with no measured data; the low scenario is negative.
-- The simulator is in-memory and synthetic. OCR is only a confidence number; no image is read. Escalation has no clock.
-- 9 of the 11 changed courses were not checked against their syllabus; only ML302 and DS408 were.
-- Credits come from the college SIS, not a separate regulations document. IP-II is my planned internship. The website and my transcript disagree on when IP-I happens.
-- Three job descriptions are a weak basis, and absence from three posts is weak evidence for REDUCE. JD3 does not state experience.
-- CS415 shows "Only CSE" in a timetable I saw although it is on my transcript: unresolved.
-- The counting rule for changed credits is my assumption.
-- The capstone is a proposal, not tried with students. No feedback received.
-- Each AI check used one example per subject.
-
-## Future work (suggested orally, NOT built)
-
-A senior academic official verbally suggested these. None is built or investigated:
-
-- Campus placement portal
-- OCR of notices into a dashboard
-- Personalised chatbot
-
-Only the two-way messaging rule exists (inside the simulator, tested by test 4). Elective registration reminders: an idea, not investigated.
-
-## Release
-
-Release and full commit URL: to be added in the last commit.
