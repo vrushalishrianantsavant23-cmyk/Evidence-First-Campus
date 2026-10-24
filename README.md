@@ -210,3 +210,55 @@ SP301 Special Project becomes a "Workflow Reliability" capstone: students map a 
 ### Feedback
 
 At the time of writing I have not received feedback from any faculty member, graduate or senior. I will not write feedback I did not receive.
+## Task 2: curriculum audit and proposal
+
+Full report: [`task2/report.md`](task2/report.md). Data: [`task2/data/`](task2/data/). Credits come from the college SIS (I read it myself); no grades are used anywhere. I did not read a separate regulations document.
+
+### Credits by semester (as registered, first attempt)
+
+| Semester | Credits | Courses changed in the proposal |
+|----------|--------:|---------------------------------|
+| I | 20 | none |
+| II | 24 | none |
+| III | 24 | CS206 |
+| IV | 24 | CS205, DS202 |
+| V | 21 | DS303 (reduce), DS305, CS415 |
+| VI | 19 | ML302 (reduce), DS307, SP301 |
+| VII | 16 | CS307, DS408 |
+| I to VII | 148 | |
+| IP-I (summer) | 3 | none |
+| IP-II (Sem VIII, my plan, not yet registered) | 15 | none |
+| **Total** | **166** | |
+
+### The proposal in numbers
+
+| Action | Courses | Credits |
+|--------|---------|--------:|
+| REDUCE | DS303 Blockchain, ML302 Fuzzy and Rough Set | 6 |
+| ADD (same slot, same credits) | NEW1 AI Evaluation, Testing and Observability replaces DS303; NEW2 MLOps and Deployment replaces ML302 | 6 |
+| UPDATE | CS206, DS305, DS307, CS205, DS202, CS415, SP301, CS307, DS408 | 30 |
+| KEEP | everything else | 130 |
+
+Counting rule (ASSUMPTION): changed = UPDATE + REDUCE = 30 + 6 = 36; 36 / 166 = 21.7%. Other counting rules give 7.2% (REDUCE and ADD only) to 25.3% (everything counted separately). Every semester total stays the same, so the programme total stays 166.
+
+### Job descriptions used (all accessed 23 Oct 2026)
+
+| ID | Role | Company | Posted | Link |
+|----|------|---------|--------|------|
+| JD1 | AI Engineer, Enterprise Conversational Platform | HiringBlaze (likely an intermediary) | 2026-10-14 | [link](https://www.hirist.tech/j/ai-engineer-enterprise-conversational-platform-1678232) |
+| JD2 | Junior Data Engineer | Crowe, Hyderabad | 2026-10-22 | [link](https://crowe.wd12.myworkdayjobs.com/en-US/external_careers/job/Hyderabad-Telangana-India/Junior-Data-Engineer_R-51712-1) |
+| JD3 | GenAI Engineer (contract) | Workiy, remote | opened 2026-09-29 | [link](https://workiy.zohorecruit.com/jobs/Workiy-Careers/574222000024500104) |
+
+Three job posts are a small sample: a pattern, not the job market.
+
+### Credit calculator (small interactive tool)
+
+[Open the calculator](https://vrushalishrianantsavant23-cmyk.github.io/Evidence-First-Campus/task2/calculator/). Tick or untick any change and it shows the total before and after, whether it is balanced, and the changed share. My own check in my browser on 24 Oct 2026: 166, 166, Balanced Yes, 36 changed credits, 21.7%, inside 20 to 25% Yes.
+
+### Capstone built from Task 1
+
+SP301 Special Project becomes a "Workflow Reliability" capstone: students map a small workflow, keep a dated evidence log, build a status engine, test five synthetic cases on GitHub Actions, and model net time saved. My Task 1 is the worked example. It is a proposal; I do not know what SP301 contains today. Details: [`task2/report.md`](task2/report.md) section 8.
+
+### Feedback
+
+At the time of writing I have not received feedback from any faculty member, graduate or senior. I will not write feedback I did not receive.
