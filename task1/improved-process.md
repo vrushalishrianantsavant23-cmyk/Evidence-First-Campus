@@ -13,8 +13,8 @@ From `evidence-log.md`: the Notice Board is a date-ordered list with no priority
 | Title | yes | |
 | Body | yes | |
 | Audience (all, a programme or semester, or one faculty) | yes | |
-| Priority flag (normal or important) | yes | |
-| Deadline or expiry date | for notices that need action | |
+| Important flag (normal or important) | no, default normal | in the simulator this is the `important` flag |
+| Deadline or expiry date | proposed only | NOT in the simulator |
 | Supersedes link (id of an earlier notice) | optional | used for corrections |
 
 ## 3. Statuses
@@ -46,7 +46,7 @@ Main path: Draft, Published, Delivered, Acknowledged. Side exits: PendingApprova
 - Faculty and admin roles can publish a notice.
 - A student can message ONE faculty directly with no approval.
 - A student broadcast to many people needs admin approval first (PendingApproval).
-- A student cannot publish a notice or supersede one.
+- A student cannot publish a broadcast or supersede a notice. In the engine a student's supersedes link is simply ignored (not rejected), and this is not covered by a test.
 - A notice is never edited. A correction is a new notice that supersedes the old one.
 - Acknowledgement shows only a COUNT to the sender, not names.
 
@@ -84,5 +84,7 @@ The same statuses and acknowledgement count could be used for a registration dea
 ## 10. Known limits of the engine
 - The escalation window is not simulated; the function is called by hand.
 - Any allowed issuer can supersede any live notice. The engine does not check that it is the original issuer.
+- `manual_review` has no permission check, so in the engine anyone who calls it can deliver a Failed notice.
+- An unknown role is rejected by the code ("role not allowed"), but no test checks this.
 - To avoid double counting, the engine keeps synthetic student ids inside a notice. The design only SHOWS a count to senders.
 - Thresholds (confidence 0.6, reminder window) are my own choices, not measured values.
