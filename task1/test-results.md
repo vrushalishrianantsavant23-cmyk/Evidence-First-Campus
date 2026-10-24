@@ -3,7 +3,7 @@
 All inputs are SYNTHETIC. No real notices, names or student data were used.
 
 ## Where the tests ran
-- OBSERVED: 24 Oct 2026, around 14:20 IST, GitHub Actions workflow "tests", run #14, commit 550f446 (message: "Revise Task 1 Evidence Log for SIS Notice Board").
+- OBSERVED: 24 Oct 2026, GitHub Actions workflow "tests", run #14, commit 550f446 (message: "Revise Task 1 Evidence Log for SIS Notice Board").
 - OBSERVED: the log printed Python 3.12.15, pytest 9.1.1, "collected 8 items" and "8 passed in 0.02s".
 - Run page: https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/actions/runs/40079556691
 - Code: `task1/simulator/notice_engine.py`. Tests: `task1/simulator/test_notice_engine.py`.
