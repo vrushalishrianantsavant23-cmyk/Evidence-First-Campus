@@ -2,7 +2,7 @@
 
 **Evidence-first student work: every claim in this repo is tagged OBSERVED, ESTIMATE or ASSUMPTION, and every "built" claim has a test behind it.**
 
-Round 2 submission, B.Tech (DS&AI), ICFAI Tech, Hyderabad. This is student work, not an official syllabus revision and not an official college system.
+Round 2 submission, B.Tech Data Science and AI, ICFAI Tech, Hyderabad. This is student work, not an official syllabus revision and not an official college system.
 
 > Release and commit links: added in the last commit (see the end of this file).
 
@@ -36,7 +36,7 @@ Round 2 submission, B.Tech (DS&AI), ICFAI Tech, Hyderabad. This is student work,
 | Practical design | [`task1/improved-process.md`](task1/improved-process.md), [`task1/simulator/`](task1/simulator/), the capstone in [`task2/report.md`](task2/report.md) section 8 |
 | Honest limitations | Section "Limitations" below (all in one place) |
 
-## The problem in one picture (current process)
+## Task 1: the problem (current process)
 
 Only what I saw or was told is drawn. How notices are created and approved is NOT drawn, because the official I asked declined to explain it and I did not press.
 
@@ -53,11 +53,7 @@ flowchart LR
 
 Board facts (OBSERVED in my own account, 24 Oct 2026): "Showing the latest 100 of 809 notices", oldest notice dated 6 Aug 2023. The viewed tick or cross is my own account only.
 
-## Tests status
-
-Recorded run: workflow "tests", run #14, commit 550f446, 24 Oct 2026, "collected 8 items", "8 passed in 0.02s" (Python 3.12.15, pytest 9.1.1). [Run page](https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/actions/runs/40079556691)
-
-## The improved process: a status engine
+## Task 1: the improved process (a status engine)
 
 The notice engine in [`task1/simulator/notice_engine.py`](task1/simulator/notice_engine.py) is a small Python model of the improved process. **All data used with it is synthetic.** It is a simulator, not a college system and not connected to the SIS.
 
@@ -122,3 +118,43 @@ if ocr_confidence is not None and ocr_confidence < OCR_MIN_CONFIDENCE:
 - It does not read images. OCR is only a confidence number passed in by the test.
 - It does not know who is logged in; the issuer role is a parameter.
 - It does not store anything between runs.
+
+## Task 1: the five required synthetic cases
+
+All inputs are synthetic (`student_a` and `faculty_x` are made-up labels, not real people). Source: [`task1/simulator/test_notice_engine.py`](task1/simulator/test_notice_engine.py).
+
+| # | Case | Test | Synthetic input | Expected result (asserted) | Recovery (asserted) |
+|---|------|------|-----------------|----------------------------|---------------------|
+| 1 | Normal | `test_1_normal` | Faculty posts "Exam schedule", audience `sem7`, important | `Delivered`; after a student acknowledges: `Acknowledged` | none needed |
+| 2 | Missing information | `test_2_missing_information` | Faculty posts with an empty title | `Rejected`, reason contains "title" | Resubmit with a title: `Delivered` |
+| 3 | Duplicate | `test_3_duplicate` | Admin posts the same title, body and audience twice | 1st `Delivered`; 2nd `Rejected`, reason "duplicate of notice 1" | The first notice stays live |
+| 4 | Unauthorized request | `test_4_unauthorized_request` | Student tries to broadcast "Sell books" to `all` | `PendingApproval`; after the admin declines: `Rejected` | A message to ONE faculty (`one:faculty_x`) needs no approval: `Delivered` |
+| 5 | Failed step | `test_5_failed_step` | Admin posts a scanned notice with synthetic OCR confidence 0.3 | `Failed`, reason "check original notice" | `manual_review` with the typed text: `Delivered` |
+
+Three more tests cover the rest of the design:
+
+| Test | What it checks |
+|------|----------------|
+| `test_escalation_of_unacknowledged_important_notice` | An important notice with no acknowledgement becomes `Escalated` |
+| `test_7_correction_supersedes_old_notice` | A correction marks the old notice `Superseded`; superseding a notice that does not exist (id 99) is `Rejected` |
+| `test_8_ack_count_does_not_double_count` | The same student acknowledging twice counts once; two students give `ack_count == 2` |
+
+Recorded run: workflow "tests", run #14, commit 550f446, 24 Oct 2026, "collected 8 items", "8 passed in 0.02s" (Python 3.12.15, pytest 9.1.1). [Run page](https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/actions/runs/40079556691)
+
+### What the tests do NOT cover
+
+- No test for an unknown role (for example a visitor). The code returns `Rejected`, "role not allowed", but I did not test it.
+- Escalation has no clock. The test calls `escalate_if_unacknowledged` directly; the "window" is not modelled in code.
+- `manual_review` has no permission check in the simulator. A real system would need one.
+- Everything is in memory and synthetic. Nothing was run against the real SIS.
+
+### Run it yourself
+
+```bash
+git clone https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus.git
+cd Evidence-First-Campus
+pip install pytest
+pytest -v task1/simulator
+```
+
+Expected: 8 tests collected, 8 passed. The same command runs on every push through [`.github/workflows/tests.yml`](.github/workflows/tests.yml).
