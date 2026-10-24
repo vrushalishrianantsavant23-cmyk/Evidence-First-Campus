@@ -1,13 +1,14 @@
 """Synthetic notice workflow engine. All data used with it is [SYNTHETIC].
 
 Statuses: Draft, PendingApproval, Published, Delivered, Acknowledged,
-Rejected, Withdrawn, Escalated, Failed.
+Escalated, Superseded, Rejected, Failed.
 """
 from dataclasses import dataclass, field
 
 ALLOWED_ISSUERS = {"faculty", "admin"}
 REQUIRED_FIELDS = ("title", "body", "audience")
 OCR_MIN_CONFIDENCE = 0.6
+LIVE_STATUSES = ("Delivered", "Acknowledged", "Escalated")
 
 
 @dataclass
@@ -20,7 +21,13 @@ class Notice:
     important: bool = False
     status: str = "Draft"
     reason: str = ""
+    supersedes: int = 0
     acked_by: set = field(default_factory=set)
+
+    @property
+    def ack_count(self):
+        """Senders see only this number, never who acknowledged."""
+        return len(self.acked_by)
 
 
 class Engine:
@@ -32,9 +39,18 @@ class Engine:
         self.notices.append(n)
         return n
 
+    def _find(self, notice_id):
+        if 1 <= notice_id <= len(self.notices):
+            return self.notices[notice_id - 1]
+        return None
+
     def submit(self, issuer, title="", body="", audience="", important=False,
-               ocr_confidence=None):
-        """Submit a notice or a message. ocr_confidence is set only for image notices."""
+               ocr_confidence=None, supersedes=None):
+        """Submit a notice or a message.
+
+        ocr_confidence is set only for image notices (synthetic number).
+        supersedes is the id of an earlier notice that this one corrects.
+        """
         n = self._new(issuer, title, body, audience, important)
 
         missing = [f for f in REQUIRED_FIELDS if not getattr(n, f).strip()]
@@ -54,6 +70,14 @@ class Engine:
             return n
 
         if issuer in ALLOWED_ISSUERS:
+            if supersedes is not None:
+                old = self._find(supersedes)
+                if old is None or old.status not in LIVE_STATUSES:
+                    n.status = "Rejected"
+                    n.reason = f"cannot supersede notice {supersedes}"
+                    return n
+                old.status, old.reason = "Superseded", f"replaced by notice {n.id}"
+                n.supersedes = supersedes
             n.status = "Published"
         elif issuer == "student":
             if n.audience.startswith("one:"):
