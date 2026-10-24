@@ -32,11 +32,11 @@ See `process-map.md`. The approval chain and the sender side are unknown to me (
 
 ## 5. Proposed process
 See `improved-process.md`.
-- Inputs: title, body, audience, priority flag, deadline, optional supersedes link.
+- Inputs in the simulator: title, body, audience, an important flag, and an optional supersedes link. A deadline field is a proposed input but is not in the simulator.
 - Nine statuses: Draft, PendingApproval, Published, Delivered, Acknowledged, Escalated, Superseded, Rejected, Failed.
 - Accountable owner: an assumed department office role. This is a proposal, because the real chain is unknown.
 - Approval boundaries: faculty and admin roles publish; a student may message one faculty directly; a student broadcast needs admin approval.
-- Fallback: manual review of the original notice; escalation if an important notice gets no acknowledgement in a set window.
+- Fallback: manual review of the original notice; escalation if an important notice gets no acknowledgement. The acknowledgement window is not modelled in the code.
 - No editing: a correction supersedes the old notice. Senders see only an acknowledgement count, not names.
 
 It is a proposal, not an approved college feature.
@@ -45,6 +45,8 @@ It is a proposal, not an approved college feature.
 Five synthetic cases (normal, missing information, duplicate, unauthorized request, failed step) plus three extra tests (escalation, correction that supersedes, acknowledgement count without double counting). They are written in pytest and ran on GitHub Actions on 24 Oct 2026: 8 collected, 8 passed (run #14, commit 550f446). Details are in `test-results.md`.
 
 They show that my engine behaves as I designed it. They do not show that the design works in the real college. All inputs are synthetic.
+
+Not covered: an unknown role (the code rejects it, but no test checks this); the escalation clock; a permission check on manual review.
 
 ## 7. Net time saved
 See `net-time-saved.md`. No time was measured, so every time value is an ESTIMATE or ASSUMPTION and I show low, base and high scenarios.
@@ -73,5 +75,5 @@ A campus placement portal, OCR of notices into a dashboard, two-way messaging an
 - The sample (23 rows) is small and not random.
 - The approval chain and the sender side are unknown.
 - All time numbers are estimates or assumptions, not measurements, and the cohort size of 100 is assumed.
-- Tests use synthetic data. OCR, chatbot and placement portal are not built.
-- Thresholds (confidence 0.6, reminder window) are my own choices.
+- Tests use synthetic data. OCR, chatbot and placement portal are not built. In the simulator, OCR is only a confidence number.
+- The OCR confidence threshold (0.6) is my own choice. The reminder window for escalation is not modelled in the code.
