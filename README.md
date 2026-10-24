@@ -2,7 +2,7 @@
 
 **Evidence-first student work: every claim in this repo is tagged OBSERVED, ESTIMATE or ASSUMPTION, and every "built" claim has a test behind it.**
 
-Round 2 submission, B.Tech Data Science and AI, ICFAI Tech, Hyderabad. This is student work, not an official syllabus revision and not an official college system.
+Round 2 submission, B.Tech (DS&AI), ICFAI Tech, Hyderabad. This is student work, not an official syllabus revision and not an official college system.
 
 > Release and commit links: added in the last commit (see the end of this file).
 
