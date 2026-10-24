@@ -6,7 +6,7 @@ Round 2 submission, B.Tech Data Science and AI, ICFAI Tech, Hyderabad. This is s
 
 [![tests](https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/actions/workflows/tests.yml/badge.svg)](https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/actions/workflows/tests.yml)
 
-> Release and commit links: see the "Release" section at the end of this file.
+> Release: [v1.0](https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/releases/tag/v1.0) | Full commit: [abb6f7196cec55592ff69bd1b6e97465bea23178](https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/commit/abb6f7196cec55592ff69bd1b6e97465bea23178)
 
 ## What this repo contains
 
