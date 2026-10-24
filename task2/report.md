@@ -1,144 +1,132 @@
-# Task 2 Report: Evidence-First Curriculum Proposal
+# Task 2 Report: Curriculum audit and redesign (student proposal)
 
-> Student proposal, not an official syllabus revision. Every claim is tagged [OBSERVED], [ESTIMATE] or [ASSUMPTION].
+Student work for B.Tech Data Science and AI. It is not an official syllabus revision. Files: `data/courses.csv`, `data/proposal.csv`, `data/job_descriptions.csv`, `ai-use/ai-use-record.md`. Tool: [credit calculator](https://vrushalishrianantsavant23-cmyk.github.io/Evidence-First-Campus/task2/calculator/). No grades are used anywhere.
 
-## 1. Credit map by semester
+## 1. Credit map by semester (as registered, first attempt)
+| Semester | Credits | Courses changed in the proposal |
+|----------|--------:|---------------------------------|
+| I | 20 | none |
+| II | 24 | none |
+| III | 24 | CS206 |
+| IV | 24 | CS205, DS202 |
+| V | 21 | DS303 (reduce), DS305, CS415 |
+| VI | 19 | ML302 (reduce), DS307, SP301 |
+| VII | 16 | CS307, DS408 |
+| Semesters I to VII | 148 | |
+| IP-I (summer) | 3 | none |
+| IP-II (Sem VIII, my plan) | 15 | none |
+| **Programme total** | **166** | |
 
-Source: my own registered course path (codes, titles, credits only; no grades). Data file: `task2/data/courses.csv`. Proposal file: `task2/data/proposal.csv`. Interactive version: see `task2/calculator/`.
+Course credits come from the college SIS (student information system), which I read myself; no grades are used. The programme total of 166 is the sum of these credits, where IP-II (15 credits) is my planned Semester VIII internship. I did not read a separate regulations document. Semester totals do not change in the proposal, because every ADD replaces a REDUCE in the same slot.
 
-| Term | Credits before | Credits after | Note |
-|------|---------------:|--------------:|------|
-| Sem I | 20 | 20 | no change |
-| Sem II | 24 | 24 | no change |
-| Sem III | 24 | 24 | no change |
-| Sem IV | 24 | 24 | no change |
-| Sem V | 21 | 21 | DS303 (3) reduced, NEW1 (3) added in the same slot |
-| Sem VI | 19 | 19 | ML302 (3) reduced, NEW2 (3) added in the same slot |
-| Sem VII | 16 | 16 | no change in credits (content updates only) |
-| IP-I (summer) | 3 | 3 | no change |
-| Sem VIII (IP-II internship) | 15 | 15 | no change |
-| **Total** | **166** | **166** | balanced |
+## 2. The proposal in numbers
+| Action | Courses | Credits |
+|--------|---------|--------:|
+| REDUCE (moved out of core) | DS303, ML302 | 6 |
+| ADD (same slot, same credits) | NEW1 replaces DS303, NEW2 replaces ML302 | 6 |
+| UPDATE (same credits, new content) | CS206, DS305, DS307, CS205, DS202, CS415, SP301, CS307, DS408 | 30 |
+| KEEP | all other courses, including internships and zero-credit courses | 130 |
 
-- [OBSERVED] Credits per semester come from my own registered course path.
-- [ASSUMPTION] The programme total of 166 is not yet verified against the official regulations. I have not found the official scheme document.
-- [ASSUMPTION] EC308 Embedded Systems is counted as 3 credits (catalog value; my transcript row showed 0).
-- [ASSUMPTION] Changed credits = credits of UPDATE courses + credits of REDUCE courses. An ADD that replaces a REDUCE in the same slot is counted once, through the REDUCE.
-- [ESTIMATE] Changed credits = 6 (REDUCE) + 30 (UPDATE, 9 courses) = 36. 36 / 166 = 21.7%, inside the 20% to 25% target band (33.2 to 41.5 credits).
+Counting rule (ASSUMPTION): changed credits = UPDATE credits + REDUCE credits. An ADD that replaces a REDUCE is counted once. So 30 + 6 = 36, and 36 / 166 = 21.7 percent, inside the 20 to 25 percent band. Other ways to count, shown so the choice is visible:
+- REDUCE, ADD and UPDATE all counted separately: 42 credits = 25.3 percent.
+- Only REDUCE and ADD counted: 12 credits = 7.2 percent.
+- Without the DS303 change the changed credits would be 33 (19.9 percent, by my calculation), which is just outside the band. The calculator lets you untick any change.
 
-  
-## 2. Reasons for the changes
+Calculator check (OBSERVED, my own browser, 24 Oct 2026): the page showed total before 166, total after 166, Balanced Yes, changed credits 36, changed share 21.7 percent, and Inside 20 to 25 percent Yes.
+
+## 3. Reasons for each change
+Tags: OBSERVED = I saw it in a source. ASSUMPTION = my reading, not verified. JD1 to JD3 are in section 4. Only ML302 (full lecture plan) and DS408 (objectives only) had their syllabus checked. For the other 8 UPDATE courses I did not see the topic list, so what they lack today is an ASSUMPTION.
 
 | # | Change | Reason | Tag |
 |---|--------|--------|-----|
-| 1 | REDUCE DS303 Blockchain Technology (V, 3 cr) | None of the 3 job descriptions I collected mentions blockchain. | [OBSERVED] |
-| 2 | REDUCE ML302 Fuzzy and Rough Set Theory (VI, 3 cr) | None of the 3 job descriptions mentions it. I read its full 34-lecture syllabus (fuzzy sets, fuzzy logic, rule systems, rough sets, reducts, decision tables). It moves to the elective pool, not deleted. | [OBSERVED] |
-| 3 | ML302 overlap | Its automated-methods topics probably overlap with the ML and deep learning courses. I have not compared them topic by topic. | [ASSUMPTION] |
-| 4 | ADD NEW1 AI Evaluation, Testing and Observability (V, 3 cr) | JD1 lists automated testing, AI evaluation and prompt engineering. | [OBSERVED] |
-| 5 | ADD NEW2 MLOps and Deployment (VI, 3 cr) | JD1 lists APIs and microservices, JD2 lists Git and CI/CD, JD3 lists cloud and solution architecture. None of them uses the word "MLOps"; the course name is my own grouping. | [OBSERVED] for the skills, [ASSUMPTION] for the name |
-| 6 | UPDATE CS206 DBMS, DS305 Data Wrangling and Visualization, DS307 Big Data Systems | JD2 lists SQL, ETL/ELT, data warehousing, data lakes, PySpark and Power BI. I have NOT checked these three syllabi, so I assume these topics are missing or thin. | [OBSERVED] for the JD, [ASSUMPTION] for the gap |
-| 7 | UPDATE DS408 Generative AI (VII, 3 cr) | JD1 lists RAG, embeddings, tool calling and agent frameworks; JD3 lists LLM applications, RAG and AI agents. The course objectives I read cover VAE, GAN, autoregressive models, flows, diffusion, and training, fine-tuning, evaluating and deploying LLMs. I did not see RAG, embeddings, tool calling or agents in them. Only the objectives were checked, not the full syllabus. | [OBSERVED] |
-| 8 | UPDATE CS205 Web-Enabled Technologies | JD1 lists APIs and microservices. I have NOT checked this syllabus, so I assume REST APIs and microservices are not covered in depth. | [OBSERVED] for the JD, [ASSUMPTION] for the gap |
-| 9 | UPDATE DS202 Industry Coding Practice | JD1 lists automated testing; JD2 lists Git and CI/CD. I have NOT checked this syllabus. | [OBSERVED] for the JD, [ASSUMPTION] for the gap |
-| 10 | UPDATE CS415 Ethical Hacking (shift towards data security, access control, governance) and CS307 Cloud Computing (add cloud AI and data services) | JD2 lists data security and governance and Azure data services; JD3 lists cloud. No JD mentions ethical hacking itself. I have NOT checked either syllabus. | [OBSERVED] for the JDs, [ASSUMPTION] for the gap |
-| 11 | UPDATE SP301 Special Project, which becomes the Workflow Reliability capstone built from my Task 1 | This is a design choice, not a job-market finding. No JD asks for it directly, but JD1 (testing, evaluation) and JD2 (Git, CI/CD) both reward reliable, tested workflows. | [ASSUMPTION] |
-| 12 | KEEP 130 credits untouched, including EC308 Embedded Systems, the 15-credit internship and zero-credit courses | EC308 is also listed under ECE, so changing it would involve two departments. The internship and zero-credit courses probably follow fixed regulations that I have not verified. | [ASSUMPTION] |
+| 1 | UPDATE CS206 DBMS | JD2 names SQL, data warehousing and data lakes. Add warehousing, lakes and SQL optimisation. | JD: OBSERVED. Current gap: ASSUMPTION |
+| 2 | UPDATE DS305 Data Wrangling and Visualization | JD2 names ETL/ELT. Add ETL and data quality checks. Power BI is only an advantage in JD2, so it is not required content. | JD: OBSERVED. Current gap: ASSUMPTION |
+| 3 | UPDATE DS307 Big Data Systems | JD2 lists PySpark (preferred), data lakes and pipelines. | JD: OBSERVED. Current gap: ASSUMPTION |
+| 4 | UPDATE CS205 Web-Enabled Technologies | JD1 lists APIs and microservices, JD3 lists API integration. Add REST APIs and microservices. | JD: OBSERVED. Current gap: ASSUMPTION |
+| 5 | UPDATE DS202 Industry Coding Practice | JD1 lists automated testing, JD2 lists Git and CI/CD as preferred. Add Git and automated testing. | JD: OBSERVED. Current gap: ASSUMPTION |
+| 6 | UPDATE DS408 Generative AI | JD1 and JD3 list RAG, embeddings, tool calling and agents. The objectives I saw cover VAE, GAN, autoregressive models, flows, diffusion, LLM training, fine-tuning, evaluation and deployment. I add RAG, embeddings, tool calling and agents, and reduce music and RL application coverage because ML303 covers RL. | JD and objectives: OBSERVED. ML303 overlap: ASSUMPTION |
+| 7 | ADD NEW1 AI Evaluation, Testing and Observability (replaces DS303) | JD1 lists AI evaluation and automated testing. No course in my own path is named for it. | JD: OBSERVED. Gap: OBSERVED in my path only |
+| 8 | ADD NEW2 MLOps and Deployment (replaces ML302) | JD1 (production microservices), JD2 (CI/CD preferred) and JD3 (cloud platforms) all touch deployment. | JD: OBSERVED. Treating them as one topic: ASSUMPTION |
+| 9 | UPDATE CS307 Cloud Computing | JD2 names Azure data services, JD1 and JD3 mention cloud platforms. Add cloud AI and data services. | JD: OBSERVED. Current gap: ASSUMPTION |
+| 10 | UPDATE CS415 Ethical Hacking (partial shift) | JD2 lists data security and governance. Shift part of the course toward data security and governance and keep the core labs. | JD: OBSERVED. Current gap: ASSUMPTION |
+| 11 | REDUCE DS303 Blockchain Technology | Blockchain is absent from JD1 to JD3. This is weak evidence because there are only 3 job descriptions. | Absence: OBSERVED in 3 JDs. Conclusion: weak |
+| 12 | REDUCE ML302 Fuzzy and Rough Set Theory | Absent from JD1 to JD3. Its lecture plan is numbered 1 to 34, while the catalog lists 42 sessions. Its automated-methods topics probably overlap DS304 and DS306. | Absence and numbering: OBSERVED. Overlap: ASSUMPTION |
 
-## 3. Comparison with three real job descriptions (all accessed 23 Oct 2026)
+SP301 Special Project is also an UPDATE: it becomes the Workflow Reliability capstone built from my Task 1 (section 8).
 
-Full details and URLs: `task2/data/job_descriptions.csv`.
+## 4. Job descriptions used (accessed 23 Oct 2026)
+| ID | Role | Company | Posted | Experience | Link |
+|----|------|---------|--------|------------|------|
+| JD1 | AI Engineer, Enterprise Conversational Platform | HiringBlaze (likely an intermediary) | 2026-10-14 | 0 to 2 years | https://www.hirist.tech/j/ai-engineer-enterprise-conversational-platform-1678232 |
+| JD2 | Junior Data Engineer | Crowe, Hyderabad | 2026-10-22 | 0 to 2 years | https://crowe.wd12.myworkdayjobs.com/en-US/external_careers/job/Hyderabad-Telangana-India/Junior-Data-Engineer_R-51712-1 |
+| JD3 | GenAI Engineer (contract) | Workiy, remote | opened 2026-09-29 (an aggregator showed 6 Oct 2026) | not stated, so not clearly entry-level | https://workiy.zohorecruit.com/jobs/Workiy-Careers/574222000024500104 |
 
-- JD1: AI Engineer, Enterprise Conversational Platform, HiringBlaze (likely an intermediary), 0-2 yrs, posted 2026-10-14.
-- JD2: Junior Data Engineer, Crowe, Hyderabad, 0-2 yrs, posted 2026-10-22.
-- JD3: GenAI Engineer (contract), Workiy, remote, experience not stated (so not clearly entry-level), opened 2026-09-29.
+JD2 backup link: https://recentlypostedjobs.com/job/65377. In JD2, Power BI, PySpark, Git and CI/CD are preferred or an advantage, not required.
 
-| Skill named in the JD | JD1 | JD2 | JD3 | Course affected in my proposal |
-|-----------------------|:---:|:---:|:---:|--------------------------------|
-| SQL, data warehousing, data lakes | - | yes | - | UPDATE CS206 DBMS, DS307 Big Data Systems |
-| ETL/ELT, Power BI | - | yes | - | UPDATE DS305 Data Wrangling and Visualization |
-| Python/PySpark | Python | yes | - | UPDATE DS307 Big Data Systems |
-| APIs, microservices, API integration | yes | - | yes | UPDATE CS205 Web-Enabled Technologies |
-| Git, CI/CD | - | yes | - | UPDATE DS202 Industry Coding Practice |
-| Automated testing, AI evaluation | yes | - | - | ADD NEW1 AI Evaluation, Testing and Observability |
-| RAG, embeddings | yes | - | RAG | UPDATE DS408 Generative AI |
-| Tool calling, agents / agent frameworks | yes | - | yes | UPDATE DS408 Generative AI |
-| Prompt engineering | yes | - | yes | NEW1 and DS408 |
-| Cloud, solution architecture, Azure data services | - | Azure | yes | UPDATE CS307 Cloud Computing, ADD NEW2 MLOps and Deployment |
-| Data security and governance | - | yes | - | UPDATE CS415 Ethical Hacking |
+| Skill in the job post | In | Course in my proposal |
+|-----------------------|----|-----------------------|
+| SQL, data warehousing, data lakes | JD2 | CS206, DS307 |
+| ETL/ELT, data quality | JD2 | DS305 |
+| PySpark, data pipelines | JD1, JD2 | DS307 |
+| Azure data services, cloud | JD1, JD2, JD3 | CS307, NEW2 |
+| APIs, microservices, API integration | JD1, JD3 | CS205 |
+| Git, CI/CD, automated testing | JD1, JD2 | DS202, NEW1, NEW2 |
+| AI evaluation | JD1 | NEW1 |
+| RAG, embeddings, tool calling, agents, LLM applications, prompt engineering | JD1, JD3 | DS408 |
+| Data security and governance | JD2 | CS415 (partial) |
+| Python | JD1, JD2 | existing courses; I did not check their syllabi (ASSUMPTION) |
 
-- [OBSERVED] The skills in this table are copied from the three job descriptions.
-- [OBSERVED] No JD mentions blockchain or fuzzy/rough sets.
-- [ESTIMATE] Three job descriptions are a very small sample. They cannot represent the whole job market. They are all 0-2 years or unstated experience, and JD3 is a contract role.
-- [ASSUMPTION] Whether my current courses already cover a skill is NOT checked for 8 of the 9 UPDATE courses (syllabus_checked = no in `proposal.csv`).
+Three job descriptions are a small sample. They show a pattern, not the whole job market.
 
-## 4. Prerequisites
+## 5. Prerequisites for the new courses
+| New course | Slot | Prerequisites | Why |
+|------------|------|---------------|-----|
+| NEW1 AI Evaluation, Testing and Observability | Sem V, 3 credits | DS304 Machine Learning, DS202 Industry Coding Practice (both Sem IV) | needs ML basics and testing practice first |
+| NEW2 MLOps and Deployment | Sem VI, 3 credits | DS304 Machine Learning, CS302 Operating Systems (both Sem IV) | needs ML basics and system basics first |
 
-| New course | Sem | Prerequisites (course codes from my path) |
-|------------|-----|-------------------------------------------|
-| NEW1 AI Evaluation, Testing and Observability | V | DS304, DS202 |
-| NEW2 MLOps and Deployment | VI | DS304, CS302 |
+## 6. Regulatory conditions and risks
+- This is a student proposal. A real change would need Academic Council approval and would apply to a future batch, not to courses already completed.
+- Internships (OBSERVED, sources accessed 23 Oct 2026: https://ifheindia.org/icfai-tech-school-hyderabad/icfaitech-internship and https://ifheindia.org/lp/icfaitech2025): the website says IP-I (2 months, compulsory) is in the summer after Semester II, while my transcript shows it after Semester IV. I did not resolve this. The website also says IP-II (5.5 months) is in Sem VII or VIII and that a thesis stream is an alternative. I leave internships unchanged (KEEP).
+- Zero-credit courses (HS101, HS301) are likely untouchable and are KEEP.
+- EC308 Embedded Systems is also listed under ECE, so changing it would involve two departments. It is KEEP.
+- CS307 Cloud Computing and DS408 Generative AI appear in the Sem VII elective baskets in a timetable the college gave me. A change to them affects only students who choose them. I copied no faculty names from that document.
+- Summer-term backlog rules are not verified.
+- Each ADD replaces a REDUCE in the same slot, so every semester total stays the same.
 
-- [ASSUMPTION] I chose these prerequisites by judgement. I have not confirmed that DS304, DS202 and CS302 are completed before Sem V / Sem VI in the official scheme. This must be checked against the official regulations.
-- [ASSUMPTION] The UPDATE courses keep their existing prerequisites.
+## 7. AI-assisted checks (details in `ai-use/ai-use-record.md`)
+Model for all five: Claude Sonnet 5.5. Date: 23 Oct 2026. The checking code was written with Claude's help. I ran it in Google Colab or SQLite Online and compared the results myself.
 
-## 5. Regulatory conditions and risks
+| # | Subject | Prompt (short) | How I verified | Result |
+|---|---------|----------------|----------------|--------|
+| 1 | Computer Networks | Split 192.168.10.0/24 into 6 subnets | Python `ipaddress` listed all 8 /27 subnets; I compared mask, first and last host; I checked by hand that 3 borrowed bits are needed | Correct |
+| 2 | DBMS | Normalize an Orders table to 3NF, give SQLite CREATE statements | Ran the statements in SQLite Online, listed the 4 tables, checked each functional dependency by hand | Correct. My first run failed because I ran the script twice; fixed with DROP TABLE IF EXISTS |
+| 3 | Algorithms | Solve T(n) = 3T(n/2) + n^2 with the Master theorem | Python recursion for n = 2^1 to 2^15: T(n)/n^2 settled near 4; I checked case 3 and the regularity condition (c = 3/4) by hand | Correct: Theta(n^2) |
+| 4 | Operating Systems | Average waiting time for 4 processes under SRTF and Round Robin (q = 3) | Python simulation; compared per-process waiting times and both averages | Correct: SRTF 6.5, Round Robin 13.5 |
+| 5 | Deep Learning | Gradients of one sigmoid neuron with MSE (x=2, w=0.5, b=0.1, y=1) | Central-difference numerical check for both MSE conventions | Correct for the 1/2 convention: dL/dw about -0.0936, dL/db about -0.0468 |
 
-- [ASSUMPTION] This is a student proposal. Any real change would need approval from the university's academic bodies (for example the Academic Council or Board of Studies). I have not found their exact process.
-- [OBSERVED] I have NOT found the official regulations or scheme document, and the programme total of 166 credits is therefore not verified.
-- [OBSERVED] Internship discrepancy (sources accessed 23 Oct 2026): the IFHE website says IP-I (2 months, compulsory) is in the summer after Semester II, while my transcript shows IP-I in the summer after Semester IV. The website also says IP-II (5.5 months) is in Sem VII or VIII, with a thesis stream as an alternative.
-  - https://ifheindia.org/icfai-tech-school-hyderabad/icfaitech-internship
-  - https://ifheindia.org/lp/icfaitech2025
-- [ASSUMPTION] Internship and zero-credit courses follow fixed rules, so I keep them unchanged.
-- [OBSERVED] EC308 Embedded Systems is also listed under ECE, so changing it would involve two departments. I keep it unchanged.
-- [ASSUMPTION] Moving ML302 to the elective pool requires an elective pool to exist for my branch. I have not verified that.
-- [ASSUMPTION] Summer terms are also used for clearing backlogs. I have not verified this in the regulations.
-- [ASSUMPTION] New courses (NEW1, NEW2) need syllabus, faculty, lab resources and approval, none of which I have.
+Limitations of these checks (from the record): the subnetting code assumes /27 from the start, so I checked the choice of /27 by hand. The Master theorem numeric test supports the growth rate but is not a proof, and it assumes T(1) = 1. Round Robin depends on a tie-break convention (I used "new arrival goes first"), and per-process waiting times can differ under the other convention. The sigmoid answer is correct only for the stated MSE convention, and the numeric check tests numbers, not the derivation steps. I tested one example per subject, and no foreign-key test data was inserted for DBMS.
 
-## 6. Proposed capstone: Workflow Reliability Lab (built from Task 1)
+## 8. Capstone built from Task 1 (proposal for SP301)
+Name: Workflow Reliability capstone. SP301 Special Project (Sem VI, 3 credits) becomes a team project in which students take a small campus or office workflow and make it reliable. My Task 1 is the worked example. I do not know what SP301 contains today, so this is a proposal and not a description of the current course.
 
-SP301 Special Project (3 credits, credits unchanged) becomes a capstone where students take one real campus-style workflow, here the notice workflow from Task 1, and make it reliable.
+- Studio brief: pick one small workflow, map steps, handoffs, approvals and exceptions, and keep a dated evidence log tagged OBSERVED, ESTIMATE or ASSUMPTION.
+- Build: a status engine with defined inputs, statuses, an accountable owner, approval boundaries and a fallback (the Task 1 `simulator/` is the template).
+- Test: at least five synthetic cases (normal, missing information, duplicate, unauthorized request, failed step) with expected results and recovery, run automatically on GitHub Actions.
+- Measure: a net-time-saved model with low, base and high scenarios, counting review and support effort, using only ESTIMATE or ASSUMPTION labels unless time is measured with consenting people.
+- Rules: only permitted or synthetic data; no names, IDs, marks or private messages; anyone who declines is respected.
+- Assessment: evidence log quality, design clarity, test results, honest limitations. A perfect system is not required.
+- Prerequisites (ASSUMPTION): DS202 (Git and testing), CS205 (APIs), DS305 (data quality), all before Sem VI.
+- Link to job descriptions: JD1 (testing and evaluation), JD2 (data quality checks and monitoring), JD3 (API integration).
 
-- Students map the current process and keep a dated evidence log (OBSERVED / ESTIMATE / ASSUMPTION), as in `task1/`.
-- They design an improved process with inputs, statuses, an accountable owner, approval boundaries and a fallback.
-- They build a small simulator and write automated tests for five synthetic cases: normal, missing information, duplicate, unauthorized request, failed step.
-- They calculate NET time saved (saved time minus review and support effort).
-- They check any AI-generated output and record prompt, model, date, output and how it was verified.
-
-Link to job descriptions: automated testing and AI evaluation (JD1), Git and CI/CD (JD2), reliable API-based workflows (JD1, JD3).
-
-- [ASSUMPTION] I have not discussed this capstone with any faculty member. Lab hours, staffing and permission to use real campus workflows are unknown.
-- [ASSUMPTION] Students would use only permitted or synthetic data.
-
-## 7. Faculty and graduate feedback
-
-- [OBSERVED] Status on 23 Oct 2026: no faculty or graduate feedback has been collected yet.
-- I plan to ask voluntarily on 24 Oct 2026. If nobody is available or willing, I will write that here honestly and will not invent any feedback.
-
-Feedback received: (to be filled only with real, voluntary responses, without names.)
-
-## 8. AI-assisted exercises
-
-Five exercises, one per subject (DBMS, algorithms, operating systems, networks, deep learning). Each has prompt, model, date, output, how it was verified, verdict and limitations. Full record: `task2/ai-use/ai-use-record.txt`.
-
-- [OBSERVED] All five outputs were checked by me by running code or queries, and all were correct.
-- [OBSERVED] One query first failed with "table already exists" because I ran it twice. I fixed it with DROP TABLE IF EXISTS.
-- [OBSERVED] The neuron-gradient prompt did not specify the MSE convention, so the answer depends on the 1/2 convention.
-
-## 9. My personal contribution
-
-- I chose the topics and the Evidence-First tagging approach.
-- I collected the three job descriptions and read their requirements.
-- I read the Fuzzy and Rough Set syllabus and the Generative AI objectives.
-- I ran and checked all five AI exercises myself.
-- I made the keep/update/reduce/add decisions and the credit arithmetic, and tested the calculator.
-- [ASSUMPTION] Claude helped me draft and format files, and I reviewed the content before committing it.
+## 9. Feedback
+At the time of writing (24 Oct 2026) I have not received voluntary feedback on this proposal from a faculty member, graduate or senior. I will not write feedback that I did not receive. If any arrives before submission, it will be added here with the date and the role of the person, without a name.
 
 ## 10. Limitations
-
-1. The official regulations are not found, so the 166 total, the prerequisites and the approval process are unverified.
-2. Only 2 of the 11 changed courses have had their syllabus read (ML302 in full, DS408 objectives only). For the other 8 UPDATE courses the gap is an assumption.
-3. Three job descriptions are a tiny sample, and one is a contract role with no stated experience.
-4. The "changed credits" rule is my own definition.
-5. EC308 is counted as 3 credits from the catalog value, while my transcript row showed 0.
-6. The IP-I timing differs between the IFHE website and my transcript, and I could not resolve it.
-7. No faculty or graduate feedback yet (see section 7).
-8. This is basically a student version work of me, not an official syllabus revision.
+- 8 of the 10 changed courses were not checked against their syllabus (only ML302 and DS408 were). What they lack today is an ASSUMPTION.
+- Course credits are from the college SIS. I did not read a separate regulations document, and the 15 credits of IP-II are my planned Semester VIII internship, not yet registered.
+- Three job descriptions are a weak basis. JD3 does not state experience, and JD1 may come from an intermediary.
+- Absence from three job posts is weak evidence for REDUCE.
+- CS415 appears with an "Only CSE" label in an elective timetable I saw, yet it is on my own transcript. I did not resolve which branches take it.
+- The counting rule for changed credits is my assumption. Other rules give 7.2 to 25.3 percent.
+- The capstone is a proposal and has not been tried with students.
+- No feedback has been received yet.
