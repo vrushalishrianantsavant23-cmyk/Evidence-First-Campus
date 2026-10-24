@@ -5,6 +5,15 @@ Student work, not an official college process. Evidence IDs (E1 to E18) point to
 ## 1. Process studied
 How a notice reaches students through the SIS Notice Board. I studied it from my own student login and from a few oral answers by a senior academic official (role only, no name recorded). I had no written permission. The official answered some questions voluntarily and declined the approval question (E14), which I respected.
 
+## 1a. Data sources and permission
+| Source | What it gave me | Permission status |
+|--------|-----------------|-------------------|
+| My own SIS student login | Counts, dates and viewed marks of my own account (E1 to E10) | My own account only; no other student's data |
+| Oral answers by a senior academic official (role only, no name) | E11 to E14 | Given voluntarily and orally, not in writing; one question was declined and I respected that |
+| Synthetic data | All test cases and all time-saving inputs | Made up by me for testing; not real notices or real people |
+
+Where I did not have permission or data (approval chain, sender side, time spent), I did not collect it. I used ASSUMPTION labels or synthetic cases instead.
+
 ## 2. Problem
 - The board is a date-ordered list. There is no priority, category or deadline field (E4).
 - The sender cannot see who viewed a notice, and there is no acknowledgement option on either side (E13, oral, not verified).
