@@ -218,4 +218,7 @@ A senior academic official verbally suggested these. None is built or investigat
 
 ## Release
 
-Release and full commit URL: to be added in the last commit.
+- Named release: v1.0 (Round 2 submission v1.0), published 24 Oct 2026.
+- Release page: https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/releases/tag/v1.0
+- Full commit URL (the revision the release points to): https://github.com/vrushalishrianantsavant23-cmyk/Evidence-First-Campus/commit/abb6f7196cec55592ff69bd1b6e97465bea23178
+- This README edit was committed after the release and changes only these release links; all other content is as released.
