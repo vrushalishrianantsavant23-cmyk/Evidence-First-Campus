@@ -37,4 +37,4 @@ flowchart TD
 - No view or acknowledgement information for the sender (E13).
 - No way to correct a notice in place (E12), so the old wrong notice stays visible.
 - Approval chain, who may issue notices, and any other channels (mail, WhatsApp, boards) are unknown to me (E14, E18).
-- Everything here is from one student's view plus oral statements. It is not a verified map of the college process.
+- Everything here is from my view for SIS portal which we have plus oral statements given by our DEAN. It is not a verified map of the college process due to the permission restrictions and confidentiality.
