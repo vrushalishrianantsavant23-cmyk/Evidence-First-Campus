@@ -1,4 +1,3 @@
-# Task 1: Notice workflow
 # Task 1: SIS Notice Board workflow
 
 Student work, not an official college process. Main page: [root README](../README.md).
@@ -29,13 +28,9 @@ Student work, not an official college process. Main page: [root README](../READM
 
 ## Limitations
 
-## Limitations
-
-## Limitations
-
-- No written permission; only my own SIS account, oral statements by DEAN and synthetic data. The approval chain and sender side are not mapped.
+- No written permission; only my own SIS account, oral statements by a senior academic official and synthetic data. The approval chain and the sender side are not mapped.
 - The 23-notice sample is one student and not random; it is not scaled to 809. Time numbers are estimates (cohort of 100 assumed).
-- Tests are synthetic and never ran against the real SIS(due to permissions related issues). Escalation has no clock; the 0.6 OCR threshold is my own choice.
-- OCR, chatbot and placement portal are not built;but may also be built in the near future to improve the effiency and escalate the optimazation as a part of production system. The elective timetable was given to me by the college; I have no permission to republish it, so I copied no names.
+- Tests are synthetic and never ran against the real SIS (no permission). Escalation has no clock; the 0.6 confidence threshold is my own choice.
+- OCR, chatbot and placement portal are NOT built; they are future work only. The elective timetable was given to me by the college; I have no permission to republish it, so I copied no names.
 
 Full list: [`report.md`](report.md) section 10.
